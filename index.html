@@ -398,11 +398,11 @@
     <h2>Let's grow your business.</h2>
     <p>Tell us about your business and what you need. We'll come back to you within 24 hours with a plan.</p>
   </div>
-  <div class="ct-right fu">
-    <input class="field" type="text" placeholder="Your name" />
-    <input class="field" type="text" placeholder="Your business" />
-    <input class="field" type="email" placeholder="Your email" />
-    <select class="field" style="appearance:none; -webkit-appearance:none;">
+  <form class="ct-right fu" action="https://formspree.io/f/xnjkqwzj" method="POST">
+    <input class="field" type="text" name="name" placeholder="Your name" required />
+    <input class="field" type="text" name="business" placeholder="Your business" required />
+    <input class="field" type="email" name="email" placeholder="Your email" required />
+    <select class="field" name="service" style="appearance:none; -webkit-appearance:none;" required>
       <option value="" disabled selected style="color:#555">What do you need?</option>
       <option>Professional Website</option>
       <option>Google Ads</option>
@@ -411,9 +411,10 @@
       <option>SEO</option>
       <option>Everything — website + ads</option>
     </select>
-    <textarea class="field" placeholder="Tell us a bit about your project…"></textarea>
-    <button class="send-btn">Send message →</button>
-  </div>
+    <textarea class="field" name="message" placeholder="Tell us a bit about your project…"></textarea>
+    <button type="submit" class="send-btn">Send message →</button>
+    <p id="form-ok" style="display:none; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; color:#888; margin-top:8px;">✓ Message sent — we'll reply within 24h.</p>
+  </form>
 </div>
 
 <!-- FOOTER -->
