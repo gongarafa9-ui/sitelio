@@ -447,6 +447,477 @@
     entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'), i*70); });
   },{threshold:.08});
   document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+</<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sitelio – Démo Chatbot</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .demo-page {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .demo-page h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-page p {
+      color: #888;
+      font-size: 1rem;
+    }
+
+    /* ── CHAT BUBBLE ── */
+    #chat-bubble {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 9999;
+    }
+
+    #chat-bubble:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 32px rgba(0,0,0,0.5);
+    }
+
+    #chat-bubble svg { width: 26px; height: 26px; }
+
+    /* Notification dot */
+    #chat-bubble::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid #0a0a0a;
+    }
+
+    /* ── CHAT WINDOW ── */
+    #chat-window {
+      position: fixed;
+      bottom: 96px;
+      right: 28px;
+      width: 360px;
+      max-height: 520px;
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+      z-index: 9998;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px) scale(0.97);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    #chat-window.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Header */
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .chat-header-info h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f0f0f0;
+    }
+
+    .chat-header-info span {
+      font-size: 0.75rem;
+      color: #22c55e;
+    }
+
+    /* Messages */
+    #chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #333 transparent;
+    }
+
+    .msg {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      animation: msgIn 0.18s ease;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.bot {
+      background: #222;
+      color: #e8e8e8;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .msg.user {
+      background: #fff;
+      color: #0a0a0a;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+
+    /* Typing indicator */
+    .typing {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 12px 16px;
+      background: #222;
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      width: fit-content;
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      background: #666;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    /* Quick replies */
+    #quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 16px 12px;
+    }
+
+    .quick-btn {
+      background: transparent;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .quick-btn:hover {
+      background: #222;
+      border-color: #555;
+    }
+
+    /* Input */
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid #222;
+    }
+
+    #chat-input {
+      flex: 1;
+      background: #1e1e1e;
+      border: 1px solid #2e2e2e;
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #f0f0f0;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    #chat-input:focus { border-color: #555; }
+    #chat-input::placeholder { color: #555; }
+
+    #send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    #send-btn:hover { background: #e8e8e8; transform: scale(1.05); }
+    #send-btn:disabled { background: #2a2a2a; cursor: not-allowed; transform: none; }
+    #send-btn svg { width: 18px; height: 18px; }
+
+    @media (max-width: 420px) {
+      #chat-window { right: 12px; left: 12px; width: auto; }
+      #chat-bubble { right: 16px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="demo-page">
+  <h1>Sitelio</h1>
+  <p>Cliquez sur la bulle en bas à droite pour tester le chatbot →</p>
+</div>
+
+<!-- Bubble -->
+<button id="chat-bubble" aria-label="Ouvrir le chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<!-- Chat window -->
+<div id="chat-window" role="dialog" aria-label="Chat Sitelio">
+  <div class="chat-header">
+    <div class="chat-avatar">S</div>
+    <div class="chat-header-info">
+      <h3>Sitelio</h3>
+      <span>● En ligne</span>
+    </div>
+  </div>
+
+  <div id="chat-messages"></div>
+
+  <div id="quick-replies"></div>
+
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Posez votre question..." autocomplete="off" />
+    <button id="send-btn" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────
+  const SYSTEM_PROMPT = `Tu es l'assistant virtuel de Sitelio, une agence web fondée par Rafael, spécialisée dans la création de sites internet et la publicité en ligne pour les petites entreprises et artisans.
+
+Réponds toujours en français (ou en portugais si le client écrit en portugais). Sois chaleureux, professionnel et concis.
+
+NOS OFFRES :
+- Site Basique : 100€ — site vitrine simple, design soigné, responsive mobile
+- Site + Chatbot IA : 120€ — même chose avec un assistant virtuel intégré (comme celui-ci !)
+- Site Sécurisé + Chatbot : 150€ — HTTPS, certificat SSL, protection renforcée + chatbot
+- Site Intermédiaire Complet : 250€ — tout inclus : site pro, chatbot IA, sécurité SSL, Google Ads ou Meta Ads au démarrage, SEO de base
+
+NOS SERVICES ADDITIONNELS :
+- Google Ads (publicité Google)
+- Meta Ads (pub Facebook/Instagram)
+- SEO (référencement naturel)
+- Sites e-commerce
+
+CONTACT : Pour un devis personnalisé, le client peut remplir le formulaire de contact sur le site ou poser ses questions directement ici.
+
+RÈGLES :
+- Ne jamais inventer de services ou tarifs non listés
+- Si tu ne sais pas, dis-le honnêtement et propose de contacter Rafael directement
+- Reste bref : 2-3 phrases max par réponse sauf si on te demande plus de détails
+- Ne pas faire de phrases trop longues ou compliquées`;
+
+  const QUICK_REPLIES_INITIAL = [
+    "Vos tarifs ?",
+    "C'est quoi le chatbot ?",
+    "Délai de livraison ?",
+    "Vous faites du Google Ads ?"
+  ];
+
+  // ── STATE ────────────────────────────────────────────────
+  let history = [];
+  let isOpen = false;
+  let isLoading = false;
+
+  // ── DOM ──────────────────────────────────────────────────
+  const bubble   = document.getElementById('chat-bubble');
+  const win      = document.getElementById('chat-window');
+  const msgs     = document.getElementById('chat-messages');
+  const input    = document.getElementById('chat-input');
+  const sendBtn  = document.getElementById('send-btn');
+  const qrDiv    = document.getElementById('quick-replies');
+
+  // ── HELPERS ──────────────────────────────────────────────
+  function addMsg(role, text) {
+    const div = document.createElement('div');
+    div.className = `msg ${role === 'assistant' ? 'bot' : 'user'}`;
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const t = document.createElement('div');
+    t.className = 'typing';
+    t.id = 'typing-indicator';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  function setQuickReplies(replies) {
+    qrDiv.innerHTML = '';
+    replies.forEach(r => {
+      const btn = document.createElement('button');
+      btn.className = 'quick-btn';
+      btn.textContent = r;
+      btn.onclick = () => sendMessage(r);
+      qrDiv.appendChild(btn);
+    });
+  }
+
+  // ── OPEN / CLOSE ─────────────────────────────────────────
+  bubble.addEventListener('click', () => {
+    isOpen = !isOpen;
+    win.classList.toggle('open', isOpen);
+
+    // Remove notification dot after first open
+    bubble.style.setProperty('--dot', 'none');
+    bubble.style.cssText += '; --dot-display: none';
+
+    if (isOpen && history.length === 0) {
+      setTimeout(() => {
+        addMsg('assistant', 'Bonjour ! 👋 Je suis l\'assistant de Sitelio. Comment puis-je vous aider ?');
+        setQuickReplies(QUICK_REPLIES_INITIAL);
+        input.focus();
+      }, 200);
+    }
+  });
+
+  // Remove the green dot after first open
+  const style = document.createElement('style');
+  document.head.appendChild(style);
+  bubble.addEventListener('click', () => {
+    style.textContent = '#chat-bubble::after { display: none; }';
+  }, { once: true });
+
+  // ── SEND ─────────────────────────────────────────────────
+  async function sendMessage(text) {
+    text = (text || input.value).trim();
+    if (!text || isLoading) return;
+
+    input.value = '';
+    qrDiv.innerHTML = '';
+    addMsg('user', text);
+    history.push({ role: 'user', content: text });
+
+    isLoading = true;
+    sendBtn.disabled = true;
+    showTyping();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          system: SYSTEM_PROMPT,
+          messages: history
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.content?.map(b => b.text || '').join('') || 'Désolé, une erreur est survenue.';
+
+      hideTyping();
+      addMsg('assistant', reply);
+      history.push({ role: 'assistant', content: reply });
+
+      // Suggest follow-up quick replies after first real exchange
+      if (history.length === 2) {
+        setQuickReplies(["Voir toutes les offres", "Contacter Rafael", "Délai de livraison ?"]);
+      }
+
+    } catch (err) {
+      hideTyping();
+      addMsg('assistant', 'Une erreur est survenue. Réessayez dans quelques instants.');
+    }
+
+    isLoading = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+  sendBtn.addEventListener('click', () => sendMessage());
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 </script>
+
 </body>
 </html>
