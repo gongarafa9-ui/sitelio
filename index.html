@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sitelio — Websites & Ads that win you clients</title>
-  <meta name="description" content="Sitelio is a web studio that builds fast, modern websites and runs targeted ads for businesses ready to grow online. One fixed price, no surprises." />
+  <title>Sitelio — Des sites & des pubs qui vous amènent des clients</title>
+  <meta name="description" content="Sitelio est un studio web qui crée des sites rapides et modernes et gère des publicités ciblées pour les entreprises prêtes à grandir. Un prix fixe, sans surprise." />
   <meta name="theme-color" content="#0a0a0a" />
-  <meta property="og:title" content="Sitelio — Websites & Ads that win you clients" />
-  <meta property="og:description" content="Professional websites and targeted advertising for businesses. Built to sell." />
+  <meta property="og:title" content="Sitelio — Des sites & des pubs qui vous amènent des clients" />
+  <meta property="og:description" content="Sites web professionnels et publicités ciblées pour les entreprises. Conçus pour vendre." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='900' font-size='20' fill='%23f2f2f2' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,7 +47,6 @@
 
     ::selection { background: var(--white); color: var(--ink); }
 
-    /* film grain */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -55,14 +54,11 @@
       pointer-events: none; z-index: 9000; opacity: 0.5;
     }
 
-    /* ── SCROLL PROGRESS ── */
     #progress { position:fixed; top:0; left:0; height:2px; width:0; background:var(--white); z-index:10001; }
 
-    /* ── CURSOR ── */
     #cur  { position:fixed; top:0; left:0; width:7px; height:7px; background:var(--white); border-radius:50%; pointer-events:none; z-index:10000; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:opacity .25s, transform .12s ease-out; }
     #ring { position:fixed; top:0; left:0; width:34px; height:34px; border:1px solid var(--white); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .35s var(--ease), height .35s var(--ease), opacity .25s; }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top:0; left:0; right:0; z-index:300;
       display: flex; justify-content:space-between; align-items:center;
@@ -88,23 +84,19 @@
     .menu-open .burger span:nth-child(2){ opacity:0; }
     .menu-open .burger span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
 
-    /* mobile overlay menu */
     .mobile-menu { position:fixed; inset:0; background:var(--ink); z-index:250; display:flex; flex-direction:column; justify-content:center; padding:0 28px; gap:8px; transform:translateY(-100%); transition:transform .55s var(--ease); }
     .menu-open .mobile-menu { transform:translateY(0); }
     .mobile-menu a { font-family:'Unbounded',sans-serif; font-weight:400; font-size:34px; letter-spacing:-.02em; color:var(--white); text-decoration:none; padding:12px 0; border-bottom:1px solid var(--line); }
     .mobile-menu .mm-meta { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--g5); margin-top:34px; border:none; }
 
-    /* ── BUTTONS ── */
     .hbtn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; padding:15px 28px; transition:opacity .3s, background .3s, color .3s, border-color .3s; display:inline-block; }
     .hbtn-primary { background:var(--white); color:var(--ink); }
     .hbtn-primary:hover { opacity:.85; }
     .hbtn-ghost { border:1px solid var(--g3); color:var(--g6); }
     .hbtn-ghost:hover { border-color:var(--white); color:var(--white); }
 
-    /* ── HERO ── */
     .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; padding:128px 52px 76px; position:relative; overflow:hidden; }
     .hero-glow { position:absolute; top:-5%; left:50%; transform:translateX(-50%); width:680px; height:680px; background:radial-gradient(ellipse, rgba(243,243,240,.06) 0%, transparent 70%); pointer-events:none; }
-    /* animated logo mark */
     .hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; }
     .hero-mark { width:94px; height:94px; }
     .hero-mark svg { width:100%; height:100%; display:block; overflow:visible; }
@@ -129,31 +121,27 @@
     .hero-title .line > span { display:block; transform:translateY(105%); }
     .hero-title .ghost { color:transparent; -webkit-text-stroke:1.4px var(--g4); }
     .hero-sub { display:flex; justify-content:space-between; align-items:flex-end; margin-top:64px; padding-top:28px; border-top:1px solid var(--line); gap:40px; }
-    .hero-desc { max-width:430px; font-size:15px; line-height:1.8; color:var(--g6); }
+    .hero-desc { max-width:440px; font-size:15px; line-height:1.8; color:var(--g6); }
     .hero-desc strong { color:var(--white); font-weight:500; }
     .hero-btns { display:flex; gap:13px; flex-wrap:wrap; margin-top:34px; }
     .hero-scroll { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--g5); display:flex; align-items:center; gap:12px; white-space:nowrap; }
     .scroll-bar { width:38px; height:1px; background:var(--g4); transform-origin:left; animation:sb 2.2s ease-in-out infinite; }
     @keyframes sb { 0%,100%{transform:scaleX(1);opacity:.4} 50%{transform:scaleX(1.7);opacity:1} }
 
-    /* ── TICKER ── */
     .ticker { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:15px 0; overflow:hidden; white-space:nowrap; }
     .ticker-track { display:inline-flex; animation:tick 26s linear infinite; }
     .tick-item { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--g4); padding:0 42px; }
     .tick-item b { color:var(--g3); }
     @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── SECTION SHELL ── */
     .sec { padding:130px 52px; border-top:1px solid var(--line); position:relative; }
     .label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--g5); margin-bottom:54px; display:flex; align-items:center; gap:12px; }
     .label::before { content:''; width:22px; height:1px; background:var(--g4); }
     .sec-title { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(32px,4.6vw,62px); line-height:1.04; letter-spacing:-.035em; }
 
-    /* reveal */
     .fu { opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
     .fu.on { opacity:1; transform:translateY(0); }
 
-    /* ── SERVICES ── */
     .services-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); margin-top:8px; }
     .svc { background:var(--ink); padding:46px 44px 56px; position:relative; overflow:hidden; transition:background .4s; }
     .svc::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 0%, rgba(243,243,240,.05), transparent 62%); opacity:0; transition:opacity .4s; }
@@ -161,11 +149,10 @@
     .svc:hover::after { opacity:1; }
     .svc-num { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--g4); margin-bottom:34px; }
     .svc-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:21px; line-height:1.25; letter-spacing:-.02em; margin-bottom:15px; }
-    .svc-desc { font-size:13.5px; line-height:1.85; color:var(--g6); max-width:38ch; }
+    .svc-desc { font-size:13.5px; line-height:1.85; color:var(--g6); max-width:40ch; }
     .svc-arrow { position:absolute; bottom:40px; right:42px; font-size:18px; color:var(--g3); transition:transform .35s var(--ease), color .35s; }
     .svc:hover .svc-arrow { transform:translate(5px,-5px); color:var(--white); }
 
-    /* ── PROCESS (inverted / light) ── */
     .process { background:var(--paper); color:var(--ink); padding:130px 52px; border-top:1px solid var(--line); }
     .process .label { color:#6b6b66; }
     .process .label::before { background:#9a9a92; }
@@ -180,14 +167,12 @@
     .step-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:clamp(20px,2.4vw,30px); letter-spacing:-.025em; margin-bottom:10px; }
     .step-text { font-size:14px; line-height:1.8; color:#4a4a44; max-width:62ch; }
 
-    /* ── STATS ── */
     .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); }
     .stat { background:var(--ink); padding:48px 36px; }
     .stat-num { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(40px,5vw,68px); letter-spacing:-.04em; line-height:1; }
     .stat-num .u { font-size:.42em; color:var(--g5); margin-left:2px; }
     .stat-label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--g5); margin-top:18px; line-height:1.6; }
 
-    /* ── WHY ── */
     .why { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
     .why-left .big { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px,6vw,92px); line-height:.9; letter-spacing:-.045em; }
     .why-left .big span { color:transparent; -webkit-text-stroke:1px var(--g4); }
@@ -196,12 +181,10 @@
     .why-point-title { font-family:'Unbounded',sans-serif; font-weight:400; font-size:16px; letter-spacing:-.01em; margin-bottom:9px; }
     .why-point-text { font-size:13.5px; line-height:1.8; color:var(--g6); }
 
-    /* ── STATEMENT ── */
     .statement { padding:150px 52px; border-top:1px solid var(--line); text-align:center; }
-    .stmt { font-family:'Unbounded',sans-serif; font-weight:300; font-size:clamp(26px,3.9vw,54px); line-height:1.32; letter-spacing:-.025em; max-width:21ch; margin:0 auto; color:var(--g5); }
+    .stmt { font-family:'Unbounded',sans-serif; font-weight:300; font-size:clamp(26px,3.9vw,54px); line-height:1.32; letter-spacing:-.025em; max-width:22ch; margin:0 auto; color:var(--g5); }
     .stmt strong { font-weight:700; color:var(--white); }
 
-    /* ── PORTFOLIO ── */
     .port-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:30px; }
     .port-count { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em; color:var(--g5); white-space:nowrap; }
     .port-row { display:grid; grid-template-columns:60px 1fr 230px 70px 28px; align-items:center; gap:24px; padding:30px 0; border-bottom:1px solid var(--line); transition:padding-left .4s var(--ease); }
@@ -216,7 +199,6 @@
     .pr-yr { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--g4); text-align:right; }
     .pr-go { font-size:16px; color:var(--g3); text-align:right; transition:transform .35s var(--ease), color .35s; }
 
-    /* ── PRICING ── */
     .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:8px; }
     .plan { background:var(--ink); padding:44px 38px 40px; display:flex; flex-direction:column; transition:background .4s; }
     .plan:hover { background:var(--g1); }
@@ -232,7 +214,6 @@
     .plan-feats li::before { content:'→'; color:var(--g4); flex-shrink:0; }
     .plan .hbtn { text-align:center; }
 
-    /* ── FAQ ── */
     .faq-wrap { max-width:880px; }
     .faq-item { border-top:1px solid var(--line); }
     .faq-item:last-child { border-bottom:1px solid var(--line); }
@@ -242,10 +223,9 @@
     .faq-a { max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
     .faq-a-inner { padding:0 0 30px; font-size:14px; line-height:1.85; color:var(--g6); max-width:64ch; }
 
-    /* ── CONTACT ── */
     .contact { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
     .ct-title { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(34px,5vw,72px); line-height:.95; letter-spacing:-.04em; margin-bottom:32px; }
-    .ct-lead { font-size:15px; line-height:1.8; color:var(--g6); max-width:42ch; margin-bottom:40px; }
+    .ct-lead { font-size:15px; line-height:1.8; color:var(--g6); max-width:44ch; margin-bottom:40px; }
     .ct-direct { display:flex; flex-direction:column; gap:2px; }
     .ct-line { display:flex; justify-content:space-between; align-items:center; padding:20px 0; border-top:1px solid var(--line); text-decoration:none; transition:padding-left .35s var(--ease); }
     .ct-line:last-child { border-bottom:1px solid var(--line); }
@@ -264,7 +244,6 @@
     .wa-btn:hover { border-color:var(--white); }
     .form-note { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.1em; color:var(--g4); margin-top:4px; line-height:1.6; }
 
-    /* ── FOOTER ── */
     footer { padding:64px 52px 40px; border-top:1px solid var(--line); }
     .foot-top { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:54px; }
     .foot-brand { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px,7vw,96px); letter-spacing:-.04em; line-height:.9; }
@@ -276,7 +255,6 @@
     .foot-links a:hover { color:var(--white); }
     .f-copy { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--g4); }
 
-    /* ── PAGE LOAD ── */
     body.loading { overflow:hidden; }
     .fade-in { opacity:0; transform:translateY(16px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
     body.loaded .fade-in { opacity:1; transform:translateY(0); }
@@ -286,10 +264,8 @@
     .hero-title .line:nth-child(3) > span { transition-delay:.39s; }
     .d1 { transition-delay:.5s; } .d2 { transition-delay:.6s; } .d3 { transition-delay:.7s; } .d4 { transition-delay:.8s; }
 
-    /* ── FOCUS / A11Y ── */
     a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--white); outline-offset:3px; }
 
-    /* ── MOBILE ── */
     @media(max-width:900px){
       .why { grid-template-columns:1fr; gap:48px; }
       .stats { grid-template-columns:1fr 1fr; }
@@ -340,25 +316,25 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#process">Méthode</a></li>
+      <li><a href="#work">Réalisations</a></li>
+      <li><a href="#pricing">Tarifs</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Get a website</a>
-    <button class="burger" id="burger" aria-label="Open menu">
+    <a href="#contact" class="nav-cta">Mon site</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
+<!-- MENU MOBILE -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services" class="mm-link">Services</a>
-  <a href="#process" class="mm-link">Process</a>
-  <a href="#work" class="mm-link">Work</a>
-  <a href="#pricing" class="mm-link">Pricing</a>
+  <a href="#process" class="mm-link">Méthode</a>
+  <a href="#work" class="mm-link">Réalisations</a>
+  <a href="#pricing" class="mm-link">Tarifs</a>
   <a href="#contact" class="mm-link">Contact</a>
-  <p class="mm-meta">Sitelio — Web Studio<br>hello@sitelio.com</p>
+  <p class="mm-meta">Sitelio — Studio Web<br>hello@sitelio.com</p>
 </div>
 
 <!-- HERO -->
@@ -374,26 +350,26 @@
         <text class="hm-s" x="60" y="61">S</text>
       </svg>
     </div>
-    <div class="hero-status"><span class="dot"></span>Available for new projects</div>
+    <div class="hero-status"><span class="dot"></span>Disponible pour vos projets</div>
   </div>
   <div class="hero-content">
-  <p class="hero-eyebrow fade-in d1">Web Studio — Websites &amp; Advertising</p>
+  <p class="hero-eyebrow fade-in d1">Studio Web — Sites &amp; Publicité</p>
   <h1 class="hero-title">
-    <span class="line"><span>Your business</span></span>
-    <span class="line"><span class="ghost">deserves</span></span>
-    <span class="line"><span>clients.</span></span>
+    <span class="line"><span>Votre business</span></span>
+    <span class="line"><span class="ghost">mérite</span></span>
+    <span class="line"><span>des clients.</span></span>
   </h1>
   <div class="hero-sub">
     <div>
       <p class="hero-desc fade-in d2">
-        Sitelio builds <strong>fast, modern websites</strong> and runs <strong>targeted ads</strong> for businesses ready to grow online. One fixed price. No jargon. Just results.
+        Sitelio crée des <strong>sites modernes et rapides</strong> et gère vos <strong>publicités ciblées</strong> pour les entreprises prêtes à grandir en ligne. Un prix fixe. Sans jargon. Que des résultats.
       </p>
       <div class="hero-btns fade-in d3">
-        <a href="#contact" class="hbtn hbtn-primary">Get a free quote →</a>
-        <a href="#work" class="hbtn hbtn-ghost">See our work</a>
+        <a href="#contact" class="hbtn hbtn-primary">Devis gratuit →</a>
+        <a href="#work" class="hbtn hbtn-ghost">Nos réalisations</a>
       </div>
     </div>
-    <div class="hero-scroll fade-in d4"><div class="scroll-bar"></div>Scroll</div>
+    <div class="hero-scroll fade-in d4"><div class="scroll-bar"></div>Défiler</div>
   </div>
   </div>
 </header>
@@ -401,20 +377,20 @@
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span class="tick-item">Website Creation <b>✦</b></span>
+    <span class="tick-item">Création de site <b>✦</b></span>
     <span class="tick-item">Google Ads <b>✦</b></span>
     <span class="tick-item">Meta Ads <b>✦</b></span>
     <span class="tick-item">SEO <b>✦</b></span>
-    <span class="tick-item">E-Commerce <b>✦</b></span>
-    <span class="tick-item">Landing Pages <b>✦</b></span>
-    <span class="tick-item">Online Visibility <b>✦</b></span>
-    <span class="tick-item">Website Creation <b>✦</b></span>
+    <span class="tick-item">E-commerce <b>✦</b></span>
+    <span class="tick-item">Landing pages <b>✦</b></span>
+    <span class="tick-item">Visibilité en ligne <b>✦</b></span>
+    <span class="tick-item">Création de site <b>✦</b></span>
     <span class="tick-item">Google Ads <b>✦</b></span>
     <span class="tick-item">Meta Ads <b>✦</b></span>
     <span class="tick-item">SEO <b>✦</b></span>
-    <span class="tick-item">E-Commerce <b>✦</b></span>
-    <span class="tick-item">Landing Pages <b>✦</b></span>
-    <span class="tick-item">Online Visibility <b>✦</b></span>
+    <span class="tick-item">E-commerce <b>✦</b></span>
+    <span class="tick-item">Landing pages <b>✦</b></span>
+    <span class="tick-item">Visibilité en ligne <b>✦</b></span>
   </div>
 </div>
 
@@ -422,144 +398,144 @@
 
 <!-- SERVICES -->
 <section class="sec" id="services">
-  <p class="label fu">What we do</p>
+  <p class="label fu">Ce qu'on fait</p>
   <div class="services-grid">
-    <div class="svc fu"><p class="svc-num">01</p><h3 class="svc-name">Professional Website</h3><p class="svc-desc">A fast, modern site built from scratch — made to turn visitors into customers. Mobile-first, SEO-ready, delivered in days.</p><span class="svc-arrow">↗</span></div>
-    <div class="svc fu"><p class="svc-num">02</p><h3 class="svc-name">Google Ads</h3><p class="svc-desc">Your business at the top of Google search. We set up and manage campaigns so you reach clients actively looking for you.</p><span class="svc-arrow">↗</span></div>
-    <div class="svc fu"><p class="svc-num">03</p><h3 class="svc-name">Meta Ads — Facebook &amp; Instagram</h3><p class="svc-desc">Targeted ads that reach your exact audience on the platforms they use every day. More reach, more leads, more revenue.</p><span class="svc-arrow">↗</span></div>
-    <div class="svc fu"><p class="svc-num">04</p><h3 class="svc-name">E-Commerce Store</h3><p class="svc-desc">Sell online 24/7. A complete shop built for conversion — secure payment, product pages, and order management.</p><span class="svc-arrow">↗</span></div>
-    <div class="svc fu"><p class="svc-num">05</p><h3 class="svc-name">SEO &amp; Local Visibility</h3><p class="svc-desc">Rank higher on Google without paying for ads. We optimise your site so you show up when people search in your area.</p><span class="svc-arrow">↗</span></div>
-    <div class="svc fu"><p class="svc-num">06</p><h3 class="svc-name">Landing Pages</h3><p class="svc-desc">A single focused page built to convert. Perfect for promotions, offers, or ad campaigns that need to drive action fast.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">01</p><h3 class="svc-name">Site professionnel</h3><p class="svc-desc">Un site rapide et moderne, conçu sur mesure pour transformer vos visiteurs en clients. Optimisé mobile, prêt pour le SEO, livré en 2 jours.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">02</p><h3 class="svc-name">Google Ads</h3><p class="svc-desc">Votre entreprise en haut des résultats Google. On crée et on gère vos campagnes pour attirer les clients qui vous cherchent déjà.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">03</p><h3 class="svc-name">Meta Ads — Facebook &amp; Instagram</h3><p class="svc-desc">Des publicités ciblées qui touchent votre audience là où elle passe ses journées. Plus de visibilité, plus de clients.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">04</p><h3 class="svc-name">Boutique e-commerce</h3><p class="svc-desc">Vendez en ligne 24h/24. Une boutique complète pensée pour convertir — paiement sécurisé, fiches produits, gestion des commandes.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">05</p><h3 class="svc-name">SEO &amp; visibilité locale</h3><p class="svc-desc">Montez dans Google sans payer de pub. On optimise votre site pour que vous apparaissiez quand on cherche près de chez vous.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">06</p><h3 class="svc-name">Landing pages</h3><p class="svc-desc">Une page unique conçue pour convertir. Parfaite pour une promo, une offre ou une campagne qui doit faire agir vite.</p><span class="svc-arrow">↗</span></div>
   </div>
 </section>
 
-<!-- PROCESS (light / inverted) -->
+<!-- MÉTHODE (clair / inversé) -->
 <section class="process" id="process">
   <div class="process-intro">
     <div>
-      <p class="label fu">How we work</p>
-      <h2 class="sec-title fu">From idea<br>to clients.</h2>
+      <p class="label fu">Notre méthode</p>
+      <h2 class="sec-title fu">De l'idée<br>aux clients.</h2>
     </div>
-    <p class="fu">A clear, simple path. You always know what happens next, what it costs, and when it goes live. No surprises.</p>
+    <p class="fu">Un parcours clair et simple. Vous savez toujours ce qui vient ensuite, ce que ça coûte, et quand le site est en ligne. Sans surprise.</p>
   </div>
   <div class="steps">
-    <div class="step fu"><span class="step-n">01</span><div><h3 class="step-name">We talk</h3><p class="step-text">A short call to understand your business, your clients, and what you actually need the site to do.</p></div></div>
-    <div class="step fu"><span class="step-n">02</span><div><h3 class="step-name">You get a clear quote</h3><p class="step-text">One fixed price, written down — exactly what's included and what's not. You sign, we start. Nothing hidden.</p></div></div>
-    <div class="step fu"><span class="step-n">03</span><div><h3 class="step-name">We design &amp; build</h3><p class="step-text">You see a first version fast. Two rounds of revisions included so it ends up exactly right.</p></div></div>
-    <div class="step fu"><span class="step-n">04</span><div><h3 class="step-name">We launch</h3><p class="step-text">Your site goes live on your own domain — tested on mobile, fast, and ready to bring in clients.</p></div></div>
-    <div class="step fu"><span class="step-n">05</span><div><h3 class="step-name">We help you grow</h3><p class="step-text">Optional: ads, SEO, and maintenance to keep clients coming long after launch day.</p></div></div>
+    <div class="step fu"><span class="step-n">01</span><div><h3 class="step-name">On discute</h3><p class="step-text">Un échange rapide pour comprendre votre activité, vos clients, et ce dont votre site a vraiment besoin.</p></div></div>
+    <div class="step fu"><span class="step-n">02</span><div><h3 class="step-name">Vous recevez un devis clair</h3><p class="step-text">Un prix fixe, écrit noir sur blanc — ce qui est inclus et ce qui ne l'est pas. Vous signez, on démarre. Rien de caché.</p></div></div>
+    <div class="step fu"><span class="step-n">03</span><div><h3 class="step-name">On conçoit &amp; on développe</h3><p class="step-text">Vous voyez une première version très vite. Deux séries de retouches incluses pour un résultat parfait.</p></div></div>
+    <div class="step fu"><span class="step-n">04</span><div><h3 class="step-name">On met en ligne</h3><p class="step-text">Votre site part en ligne sur votre propre domaine — testé sur mobile, rapide, prêt à ramener des clients.</p></div></div>
+    <div class="step fu"><span class="step-n">05</span><div><h3 class="step-name">On vous aide à grandir</h3><p class="step-text">En option : publicité, SEO et maintenance pour continuer à attirer des clients après le lancement.</p></div></div>
   </div>
 </section>
 
 <!-- STATS -->
 <section class="sec">
-  <p class="label fu">The promise</p>
+  <p class="label fu">La promesse</p>
   <div class="stats">
-    <div class="stat fu"><div class="stat-num" data-count="48"><span class="num">0</span><span class="u">h</span></div><p class="stat-label">First design,<br>in front of you</p></div>
-    <div class="stat fu"><div class="stat-num"><span class="num">1</span></div><p class="stat-label">Fixed price,<br>agreed up front</p></div>
-    <div class="stat fu"><div class="stat-num" data-count="100"><span class="num">0</span><span class="u">%</span></div><p class="stat-label">Mobile-first,<br>every time</p></div>
-    <div class="stat fu"><div class="stat-num">0<span class="u">€</span></div><p class="stat-label">Hidden fees,<br>ever</p></div>
+    <div class="stat fu"><div class="stat-num" data-count="2"><span class="num">0</span><span class="u">j</span></div><p class="stat-label">Première version,<br>devant vous</p></div>
+    <div class="stat fu"><div class="stat-num"><span class="num">1</span></div><p class="stat-label">Prix fixe,<br>défini à l'avance</p></div>
+    <div class="stat fu"><div class="stat-num" data-count="100"><span class="num">0</span><span class="u">%</span></div><p class="stat-label">Optimisé mobile,<br>à chaque fois</p></div>
+    <div class="stat fu"><div class="stat-num">0<span class="u">€</span></div><p class="stat-label">Frais cachés,<br>jamais</p></div>
   </div>
 </section>
 
-<!-- WHY -->
+<!-- POURQUOI -->
 <section class="sec">
   <div class="why">
     <div class="why-left">
-      <p class="label fu">Why Sitelio</p>
-      <p class="big fu">Built<br>to<br>sell.<span>™</span></p>
+      <p class="label fu">Pourquoi Sitelio</p>
+      <p class="big fu">Conçu<br>pour<br>vendre.<span>™</span></p>
     </div>
     <div class="why-right">
-      <div class="why-point fu"><p class="why-point-title">No website, no clients online.</p><p class="why-point-text">In 2026, if your business isn't online, it doesn't exist to most people. We change that — fast.</p></div>
-      <div class="why-point fu"><p class="why-point-title">Ads that actually pay back.</p><p class="why-point-text">We don't just run ads — we track every euro spent and make sure it brings more back. No wasted budget.</p></div>
-      <div class="why-point fu"><p class="why-point-title">One team for everything.</p><p class="why-point-text">Website, ads, SEO — all in one place. No juggling five freelancers who don't talk to each other.</p></div>
-      <div class="why-point fu"><p class="why-point-title">Results in weeks, not months.</p><p class="why-point-text">We move fast. Your site goes live quickly, your ads start right after. Growth begins immediately.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Pas de site, pas de clients en ligne.</p><p class="why-point-text">En 2026, si votre entreprise n'est pas en ligne, elle n'existe pas pour la plupart des gens. On change ça, vite.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Des pubs qui rapportent vraiment.</p><p class="why-point-text">On ne lance pas juste des pubs — on suit chaque euro dépensé pour qu'il en rapporte plus. Zéro budget gaspillé.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Une seule équipe pour tout.</p><p class="why-point-text">Site, publicité, SEO — au même endroit. Pas besoin de jongler entre cinq prestataires qui ne se parlent pas.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Des résultats en semaines, pas en mois.</p><p class="why-point-text">On avance vite. Votre site est en ligne rapidement, vos pubs suivent juste après. La croissance démarre tout de suite.</p></div>
     </div>
   </div>
 </section>
 
-<!-- STATEMENT -->
+<!-- PHRASE -->
 <section class="statement">
-  <p class="stmt fu">Your competitors<br>are already online.<br><strong>Are you?</strong></p>
+  <p class="stmt fu">Vos concurrents<br>sont déjà en ligne.<br><strong>Et vous ?</strong></p>
 </section>
 
-<!-- PORTFOLIO -->
+<!-- RÉALISATIONS -->
 <section class="sec" id="work">
   <div class="port-head">
     <div>
-      <p class="label fu">Selected projects</p>
-      <h2 class="sec-title fu">Work</h2>
+      <p class="label fu">Projets sélectionnés</p>
+      <h2 class="sec-title fu">Réalisations</h2>
     </div>
-    <p class="port-count fu">06 projects</p>
+    <p class="port-count fu">06 projets</p>
   </div>
   <div class="port-list">
-    <div class="port-row fu"><span class="pr-n">01</span><span class="pr-name">Maison Ferro</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">02</span><span class="pr-name">Électro Rapide</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">03</span><span class="pr-name">Carrelage Neves</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">04</span><span class="pr-name">Auto Garage Silva</span><div class="pr-tags"><span class="tag">Landing Page</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">05</span><span class="pr-name">Boutique Laure</span><div class="pr-tags"><span class="tag">E-Commerce</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">06</span><span class="pr-name">Plomberie Dumont</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">01</span><span class="pr-name">Maison Ferro</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">02</span><span class="pr-name">Électro Rapide</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">03</span><span class="pr-name">Carrelage Neves</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">04</span><span class="pr-name">Auto Garage Silva</span><div class="pr-tags"><span class="tag">Landing page</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">05</span><span class="pr-name">Boutique Laure</span><div class="pr-tags"><span class="tag">E-commerce</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">06</span><span class="pr-name">Plomberie Dumont</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- TARIFS -->
 <section class="sec" id="pricing">
-  <p class="label fu">Packages</p>
-  <h2 class="sec-title fu" style="margin-bottom:54px;">Simple pricing.<br>No surprises.</h2>
+  <p class="label fu">Forfaits</p>
+  <h2 class="sec-title fu" style="margin-bottom:54px;">Des tarifs simples.<br>Sans surprise.</h2>
   <div class="pricing-grid">
     <div class="plan fu">
-      <span class="plan-tag muted">01 — Starter</span>
-      <h3 class="plan-name">One-Page Site</h3>
-      <div class="plan-price"><span class="from">From</span>€350</div>
-      <p class="plan-note">Perfect for a clean, credible online presence.</p>
+      <span class="plan-tag muted">01 — Essentiel</span>
+      <h3 class="plan-name">Site une page</h3>
+      <div class="plan-price"><span class="from">Dès</span>150€</div>
+      <p class="plan-note">Idéal pour une présence en ligne propre et crédible.</p>
       <ul class="plan-feats">
-        <li>Single-page professional site</li>
-        <li>Mobile-first design</li>
-        <li>Contact form + WhatsApp</li>
-        <li>Live in a few days</li>
+        <li>Site professionnel une page</li>
+        <li>Design optimisé mobile</li>
+        <li>Formulaire de contact + WhatsApp</li>
+        <li>En ligne en 2 jours</li>
       </ul>
-      <a href="#contact" class="hbtn hbtn-ghost">Get a quote →</a>
+      <a href="#contact" class="hbtn hbtn-ghost">Demander un devis →</a>
     </div>
     <div class="plan featured fu">
-      <span class="plan-tag">02 — Most popular</span>
-      <h3 class="plan-name">Business Site</h3>
-      <div class="plan-price"><span class="from">From</span>€750</div>
-      <p class="plan-note">For businesses that want to be found and grow.</p>
+      <span class="plan-tag">02 — Le plus choisi</span>
+      <h3 class="plan-name">Site vitrine</h3>
+      <div class="plan-price"><span class="from">Dès</span>400€</div>
+      <p class="plan-note">Pour les entreprises qui veulent être trouvées et grandir.</p>
       <ul class="plan-feats">
-        <li>Multi-section website</li>
-        <li>SEO &amp; local visibility setup</li>
-        <li>Google Business profile</li>
-        <li>Two rounds of revisions</li>
-        <li>Launch on your domain</li>
+        <li>Site multi-sections</li>
+        <li>Configuration SEO &amp; visibilité locale</li>
+        <li>Fiche Google Business</li>
+        <li>Deux séries de retouches</li>
+        <li>Mise en ligne sur votre domaine</li>
       </ul>
-      <a href="#contact" class="hbtn hbtn-primary">Get a quote →</a>
+      <a href="#contact" class="hbtn hbtn-primary">Demander un devis →</a>
     </div>
     <div class="plan fu">
-      <span class="plan-tag muted">03 — Custom</span>
-      <h3 class="plan-name">E-Commerce &amp; Ads</h3>
-      <div class="plan-price">Let's talk</div>
-      <p class="plan-note">Online store, ad campaigns, the full engine.</p>
+      <span class="plan-tag muted">03 — Sur mesure</span>
+      <h3 class="plan-name">E-commerce &amp; Pub</h3>
+      <div class="plan-price">Sur devis</div>
+      <p class="plan-note">Boutique en ligne, campagnes pub, le moteur complet.</p>
       <ul class="plan-feats">
-        <li>Full online shop</li>
-        <li>Google &amp; Meta ad campaigns</li>
-        <li>Ongoing growth &amp; reporting</li>
-        <li>Priority support</li>
+        <li>Boutique en ligne complète</li>
+        <li>Campagnes Google &amp; Meta Ads</li>
+        <li>Suivi &amp; croissance continue</li>
+        <li>Support prioritaire</li>
       </ul>
-      <a href="#contact" class="hbtn hbtn-ghost">Book a call →</a>
+      <a href="#contact" class="hbtn hbtn-ghost">Réserver un appel →</a>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="sec">
-  <p class="label fu">Good to know</p>
-  <h2 class="sec-title fu" style="margin-bottom:48px;">Questions,<br>answered.</h2>
+  <p class="label fu">Bon à savoir</p>
+  <h2 class="sec-title fu" style="margin-bottom:48px;">Vos questions,<br>nos réponses.</h2>
   <div class="faq-wrap fu">
-    <div class="faq-item"><button class="faq-q">How long does a website take?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Most one-page sites go live within a few days once we have your content. Larger sites take a couple of weeks. We agree on a clear timeline before we start.</div></div></div>
-    <div class="faq-item"><button class="faq-q">Who owns the domain and the site?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">You do — always. The domain is registered in your name and the site is yours. We can handle the setup and renewals for you, but it stays your property.</div></div></div>
-    <div class="faq-item"><button class="faq-q">What's included in the price?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Design, build, mobile optimisation, a contact form, and going live. Anything outside that — like photography, copywriting, or your domain fee — is listed clearly in the quote before we start.</div></div></div>
-    <div class="faq-item"><button class="faq-q">Can you change things after launch?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes. Every project includes revisions, and after launch you can take an optional maintenance plan for updates, hosting, and small changes whenever you need them.</div></div></div>
-    <div class="faq-item"><button class="faq-q">Do I need to know anything technical?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">No. That's our job. You tell us about your business, we handle the rest and explain everything in plain language.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Combien de temps pour créer un site ?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">La plupart des sites une page sont en ligne en 2 jours une fois votre contenu prêt. Les sites plus grands prennent quelques jours de plus. On fixe un délai clair avant de commencer.</div></div></div>
+    <div class="faq-item"><button class="faq-q">À qui appartient le domaine et le site ?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">À vous — toujours. Le domaine est enregistré à votre nom et le site vous appartient. On peut gérer la mise en place et les renouvellements, mais ça reste votre propriété.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Qu'est-ce qui est inclus dans le prix ?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Le design, le développement, l'optimisation mobile, un formulaire de contact et la mise en ligne. Tout le reste — photos, rédaction ou le coût de votre domaine — est indiqué clairement dans le devis avant de démarrer.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Peut-on modifier des choses après la mise en ligne ?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Oui. Chaque projet inclut des retouches, et après le lancement vous pouvez prendre une formule de maintenance optionnelle pour les mises à jour, l'hébergement et les petits changements quand vous voulez.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Faut-il s'y connaître techniquement ?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Non. C'est notre travail. Vous nous parlez de votre activité, on s'occupe du reste et on explique tout simplement.</div></div></div>
   </div>
 </section>
 
@@ -567,9 +543,9 @@
 <section class="sec" id="contact">
   <div class="contact">
     <div>
-      <p class="label fu">Get started</p>
-      <h2 class="ct-title fu">Let's build<br>your site.</h2>
-      <p class="ct-lead fu">Tell us about your business and what you want online. We'll come back with a clear quote — free, no obligation.</p>
+      <p class="label fu">On commence ?</p>
+      <h2 class="ct-title fu">Construisons<br>votre site.</h2>
+      <p class="ct-lead fu">Parlez-nous de votre activité et de ce que vous voulez en ligne. On revient vers vous avec un devis clair — gratuit, sans engagement.</p>
       <div class="ct-direct fu">
         <a class="ct-line" href="https://wa.me/33771554918" target="_blank" rel="noopener">
           <span class="k">WhatsApp</span><span class="v">+33 7 71 55 49 18 →</span>
@@ -578,18 +554,18 @@
           <span class="k">Email</span><span class="v">hello@sitelio.com →</span>
         </a>
         <a class="ct-line" href="#work">
-          <span class="k">Portfolio</span><span class="v">See our work →</span>
+          <span class="k">Réalisations</span><span class="v">Voir nos projets →</span>
         </a>
       </div>
     </div>
     <div class="fu">
       <form class="ct-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="Jean Dupont" required></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="jean@business.com" required></div>
-        <div class="field"><label for="msg">What do you need?</label><textarea id="msg" name="message" rows="4" placeholder="A website for my business, ads, e-commerce..." required></textarea></div>
-        <button class="send-btn" type="submit">Send request →</button>
-        <a class="wa-btn" href="https://wa.me/33771554918" target="_blank" rel="noopener">Or message us on WhatsApp</a>
-        <p class="form-note">We reply within 24 hours. Your details are never shared.</p>
+        <div class="field"><label for="name">Votre nom</label><input id="name" name="name" type="text" placeholder="Jean Dupont" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="jean@entreprise.com" required></div>
+        <div class="field"><label for="msg">Votre besoin ?</label><textarea id="msg" name="message" rows="4" placeholder="Un site pour mon entreprise, de la pub, une boutique en ligne..." required></textarea></div>
+        <button class="send-btn" type="submit">Envoyer la demande →</button>
+        <a class="wa-btn" href="https://wa.me/33771554918" target="_blank" rel="noopener">Ou écrivez-nous sur WhatsApp</a>
+        <p class="form-note">On répond sous 24h. Vos infos ne sont jamais partagées.</p>
       </form>
     </div>
   </div>
@@ -600,15 +576,15 @@
 <!-- FOOTER -->
 <footer>
   <div class="foot-top">
-    <div class="foot-brand">Let's<br>talk.</div>
-    <a href="#contact" class="foot-cta">Get a free quote →</a>
+    <div class="foot-brand">Parlons-en.</div>
+    <a href="#contact" class="foot-cta">Devis gratuit →</a>
   </div>
   <div class="foot-bottom">
-    <span class="f-copy">© 2026 Sitelio — Web Studio</span>
+    <span class="f-copy">© 2026 Sitelio — Studio Web</span>
     <div class="foot-links">
       <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#work">Réalisations</a>
+      <a href="#pricing">Tarifs</a>
       <a href="https://wa.me/33771554918" target="_blank" rel="noopener">WhatsApp</a>
       <a href="#legal">Mentions légales</a>
     </div>
@@ -618,14 +594,12 @@
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Page load
   window.addEventListener('load', () => {
     document.body.classList.remove('loading');
     document.body.classList.add('loaded');
   });
   setTimeout(() => { document.body.classList.remove('loading'); document.body.classList.add('loaded'); }, 1200);
 
-  // Cursor
   if (!reduce && window.matchMedia('(pointer:fine)').matches) {
     const cur = document.getElementById('cur'), ring = document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
@@ -635,7 +609,6 @@
       el.addEventListener('mouseenter',()=>{ ring.style.width='58px'; ring.style.height='58px'; cur.style.opacity='0'; });
       el.addEventListener('mouseleave',()=>{ ring.style.width='34px'; ring.style.height='34px'; cur.style.opacity='1'; });
     });
-    // Magnetic buttons
     document.querySelectorAll('.hbtn-primary, .nav-cta, .send-btn, .foot-cta').forEach(btn=>{
       btn.addEventListener('mousemove', e=>{ const r=btn.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2; const y=e.clientY-r.top-r.height/2; btn.style.transform=`translate(${x*0.25}px, ${y*0.35}px)`; });
       btn.addEventListener('mouseleave', ()=>{ btn.style.transform='translate(0,0)'; });
@@ -645,7 +618,6 @@
     document.getElementById('ring').style.display='none';
   }
 
-  // Scroll progress + nav
   const nav = document.getElementById('nav'), prog = document.getElementById('progress');
   window.addEventListener('scroll', () => {
     const h = document.documentElement.scrollHeight - innerHeight;
@@ -653,13 +625,11 @@
     nav.classList.toggle('scrolled', scrollY > 40);
   });
 
-  // Reveal
   const obs = new IntersectionObserver((entries)=>{
     entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('on'), (i%6)*70); obs.unobserve(e.target); } });
   },{threshold:.12});
   document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
 
-  // Stat counters
   const counters = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(!e.isIntersecting) return;
@@ -673,7 +643,6 @@
   },{threshold:.6});
   document.querySelectorAll('.stat-num[data-count]').forEach(el=>counters.observe(el));
 
-  // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(q=>{
     q.addEventListener('click',()=>{
       const item = q.parentElement;
@@ -684,7 +653,6 @@
     });
   });
 
-  // Mobile menu
   const burger = document.getElementById('burger');
   burger.addEventListener('click', ()=> document.body.classList.toggle('menu-open'));
   document.querySelectorAll('.mm-link').forEach(l=> l.addEventListener('click', ()=> document.body.classList.remove('menu-open')));
