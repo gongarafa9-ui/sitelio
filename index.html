@@ -3,235 +3,364 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sitelio — Websites & Ads for Businesses</title>
+  <title>Sitelio — Websites & Ads that win you clients</title>
+  <meta name="description" content="Sitelio is a web studio that builds fast, modern websites and runs targeted ads for businesses ready to grow online. One fixed price, no surprises." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta property="og:title" content="Sitelio — Websites & Ads that win you clients" />
+  <meta property="og:description" content="Professional websites and targeted advertising for businesses. Built to sell." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='900' font-size='20' fill='%23f2f2f2' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:  #080808;
-      --white:  #f2f2f2;
-      --g1:     #111111;
-      --g2:     #1c1c1c;
-      --g3:     #2e2e2e;
-      --g4:     #555555;
-      --g5:     #888888;
-      --line:   rgba(255,255,255,0.07);
+      --ink:    #0a0a0a;
+      --ink-2:  #0e0e0e;
+      --paper:  #ededea;
+      --paper-2:#e2e0da;
+      --white:  #f3f3f0;
+      --g1:     #141414;
+      --g2:     #1d1d1d;
+      --g3:     #2c2c2c;
+      --g4:     #4d4d4d;
+      --g5:     #7c7c7c;
+      --g6:     #a6a6a6;
+      --line:   rgba(243,243,240,0.08);
+      --line-2: rgba(243,243,240,0.16);
+      --ease:   cubic-bezier(.16,1,.3,1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--black);
+      background: var(--ink);
       color: var(--white);
       font-family: 'IBM Plex Sans', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
       cursor: none;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* noise */
+    ::selection { background: var(--white); color: var(--ink); }
+
+    /* film grain */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 999; opacity: 0.5;
+      pointer-events: none; z-index: 9000; opacity: 0.5;
     }
 
+    /* ── SCROLL PROGRESS ── */
+    #progress { position:fixed; top:0; left:0; height:2px; width:0; background:var(--white); z-index:10001; }
+
     /* ── CURSOR ── */
-    #cur  { position:fixed; width:6px; height:6px; background:var(--white); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:opacity .2s; }
-    #ring { position:fixed; width:32px; height:32px; border:1px solid rgba(255,255,255,.25); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s,border-color .3s; }
+    #cur  { position:fixed; top:0; left:0; width:7px; height:7px; background:var(--white); border-radius:50%; pointer-events:none; z-index:10000; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:opacity .25s, transform .12s ease-out; }
+    #ring { position:fixed; top:0; left:0; width:34px; height:34px; border:1px solid var(--white); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .35s var(--ease), height .35s var(--ease), opacity .25s; }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top:0; left:0; right:0; z-index:100;
+      position: fixed; top:0; left:0; right:0; z-index:300;
       display: flex; justify-content:space-between; align-items:center;
-      padding: 26px 52px;
-      background: linear-gradient(to bottom, rgba(8,8,8,.96) 60%, transparent);
+      padding: 24px 52px;
+      transition: padding .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+      border-bottom: 1px solid transparent;
     }
-    .nav-logo { font-family:'Unbounded',sans-serif; font-weight:700; font-size:17px; letter-spacing:.1em; color:var(--white); text-decoration:none; }
+    nav.scrolled { padding:16px 52px; background:rgba(10,10,10,.72); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+    .nav-logo { font-family:'Unbounded',sans-serif; font-weight:700; font-size:17px; letter-spacing:.12em; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:9px; }
+    .nav-logo .dot { width:7px; height:7px; background:var(--white); border-radius:50%; display:inline-block; animation:pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
     .nav-links { display:flex; gap:36px; list-style:none; }
-    .nav-links a { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--g5); text-decoration:none; transition:color .25s; }
+    .nav-links a { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--g6); text-decoration:none; position:relative; padding:4px 0; }
+    .nav-links a::after { content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--white); transition:width .35s var(--ease); }
     .nav-links a:hover { color:var(--white); }
-    .nav-cta { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--black); background:var(--white); padding:10px 22px; text-decoration:none; transition:opacity .25s; }
-    .nav-cta:hover { opacity:.8; }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); background:var(--white); padding:11px 22px; text-decoration:none; transition:transform .3s var(--ease), opacity .3s; }
+    .nav-cta:hover { opacity:.85; }
+    .nav-right { display:flex; align-items:center; gap:28px; }
+    .burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
+    .burger span { width:26px; height:1.5px; background:var(--white); transition:transform .35s var(--ease), opacity .25s; }
+    .menu-open .burger span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .menu-open .burger span:nth-child(2){ opacity:0; }
+    .menu-open .burger span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
 
-    /* ── HERO BUTTONS ── */
-    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-top:48px; margin-bottom:20px; }
-    .hbtn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; padding:14px 26px; transition:opacity .25s, background .25s, color .25s; }
-    .hbtn-primary { background:var(--white); color:var(--black); }
+    /* mobile overlay menu */
+    .mobile-menu { position:fixed; inset:0; background:var(--ink); z-index:250; display:flex; flex-direction:column; justify-content:center; padding:0 28px; gap:8px; transform:translateY(-100%); transition:transform .55s var(--ease); }
+    .menu-open .mobile-menu { transform:translateY(0); }
+    .mobile-menu a { font-family:'Unbounded',sans-serif; font-weight:400; font-size:34px; letter-spacing:-.02em; color:var(--white); text-decoration:none; padding:12px 0; border-bottom:1px solid var(--line); }
+    .mobile-menu .mm-meta { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--g5); margin-top:34px; border:none; }
+
+    /* ── BUTTONS ── */
+    .hbtn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; padding:15px 28px; transition:opacity .3s, background .3s, color .3s, border-color .3s; display:inline-block; }
+    .hbtn-primary { background:var(--white); color:var(--ink); }
     .hbtn-primary:hover { opacity:.85; }
-    .hbtn-ghost { border:1px solid var(--g3); color:var(--g5); }
-    .hbtn-ghost:hover { border-color:var(--g5); color:var(--white); }
-    @media(max-width:768px){ .hero-btns { flex-direction:column; } .hbtn { text-align:center; } }
+    .hbtn-ghost { border:1px solid var(--g3); color:var(--g6); }
+    .hbtn-ghost:hover { border-color:var(--white); color:var(--white); }
 
     /* ── HERO ── */
-    .hero {
-      min-height: 100vh; display:flex; flex-direction:column; justify-content:flex-end;
-      padding: 0 52px 80px; position:relative; overflow:hidden;
-    }
-    /* ambient glow */
-    .hero-glow {
-      position:absolute; top:0; left:50%; transform:translateX(-50%);
-      width:600px; height:600px;
-      background: radial-gradient(ellipse, rgba(255,255,255,.055) 0%, transparent 70%);
-      pointer-events:none;
-    }
-    .hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--g4); margin-bottom:28px; }
-    .hero-title {
-      font-family:'Unbounded',sans-serif; font-weight:900;
-      font-size: clamp(48px, 8.5vw, 120px);
-      line-height:.92; letter-spacing:-.03em; max-width:14ch;
-    }
-    .hero-title .ghost {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--g3);
-    }
-    .hero-sub {
-      display:flex; justify-content:space-between; align-items:flex-end;
-      margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
-    }
-    .hero-desc { max-width:400px; font-size:15px; line-height:1.75; color:var(--g5); }
-    .hero-desc strong { color:var(--white); font-weight:400; }
-    .hero-scroll { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--g4); display:flex; align-items:center; gap:12px; }
-    .scroll-bar { width:36px; height:1px; background:var(--g4); animation:sb 2s ease-in-out infinite; }
-    @keyframes sb { 0%,100%{transform:scaleX(1);opacity:.4} 50%{transform:scaleX(1.6);opacity:1} }
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 52px 76px; position:relative; overflow:hidden; }
+    .hero-glow { position:absolute; top:-5%; left:50%; transform:translateX(-50%); width:680px; height:680px; background:radial-gradient(ellipse, rgba(243,243,240,.06) 0%, transparent 70%); pointer-events:none; }
+    .hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--g5); margin-bottom:28px; display:flex; align-items:center; gap:14px; }
+    .hero-eyebrow::before { content:''; width:30px; height:1px; background:var(--g4); display:inline-block; }
+    .hero-title { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(46px,8.6vw,128px); line-height:.9; letter-spacing:-.035em; }
+    .hero-title .line { display:block; overflow:hidden; }
+    .hero-title .line > span { display:block; transform:translateY(105%); }
+    .hero-title .ghost { color:transparent; -webkit-text-stroke:1.4px var(--g4); }
+    .hero-sub { display:flex; justify-content:space-between; align-items:flex-end; margin-top:64px; padding-top:28px; border-top:1px solid var(--line); gap:40px; }
+    .hero-desc { max-width:430px; font-size:15px; line-height:1.8; color:var(--g6); }
+    .hero-desc strong { color:var(--white); font-weight:500; }
+    .hero-btns { display:flex; gap:13px; flex-wrap:wrap; margin-top:34px; }
+    .hero-scroll { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--g5); display:flex; align-items:center; gap:12px; white-space:nowrap; }
+    .scroll-bar { width:38px; height:1px; background:var(--g4); transform-origin:left; animation:sb 2.2s ease-in-out infinite; }
+    @keyframes sb { 0%,100%{transform:scaleX(1);opacity:.4} 50%{transform:scaleX(1.7);opacity:1} }
 
     /* ── TICKER ── */
-    .ticker { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:16px 0; overflow:hidden; white-space:nowrap; }
-    .ticker-track { display:inline-flex; animation:tick 22s linear infinite; }
-    .tick-item { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--g4); padding:0 44px; }
+    .ticker { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:15px 0; overflow:hidden; white-space:nowrap; }
+    .ticker-track { display:inline-flex; animation:tick 26s linear infinite; }
+    .tick-item { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--g4); padding:0 42px; }
     .tick-item b { color:var(--g3); }
     @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── SHARED ── */
-    .section-wrap { padding:120px 52px; border-top:1px solid var(--line); }
-    .label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--g4); margin-bottom:60px; }
-    .section-title { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(32px,4.5vw,60px); line-height:1.05; letter-spacing:-.03em; margin-bottom:60px; }
+    /* ── SECTION SHELL ── */
+    .sec { padding:130px 52px; border-top:1px solid var(--line); position:relative; }
+    .label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--g5); margin-bottom:54px; display:flex; align-items:center; gap:12px; }
+    .label::before { content:''; width:22px; height:1px; background:var(--g4); }
+    .sec-title { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(32px,4.6vw,62px); line-height:1.04; letter-spacing:-.035em; }
 
-    /* fade-up */
-    .fu { opacity:0; transform:translateY(28px); transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
+    /* reveal */
+    .fu { opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
     .fu.on { opacity:1; transform:translateY(0); }
 
     /* ── SERVICES ── */
-    .services-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); }
-    .svc {
-      background:var(--black); padding:48px 44px 44px; position:relative;
-      overflow:hidden; transition:background .35s;
-    }
-    .svc::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 0%,rgba(255,255,255,.05),transparent 65%); opacity:0; transition:opacity .35s; }
+    .services-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); margin-top:8px; }
+    .svc { background:var(--ink); padding:46px 44px 56px; position:relative; overflow:hidden; transition:background .4s; }
+    .svc::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 0%, rgba(243,243,240,.05), transparent 62%); opacity:0; transition:opacity .4s; }
     .svc:hover { background:var(--g1); }
     .svc:hover::after { opacity:1; }
-    .svc-num { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--g4); margin-bottom:36px; }
-    .svc-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:20px; line-height:1.25; letter-spacing:-.02em; margin-bottom:16px; }
-    .svc-desc { font-size:13.5px; line-height:1.8; color:var(--g5); max-width:36ch; }
-    .svc-arrow { position:absolute; bottom:40px; right:40px; font-size:18px; color:var(--g3); transition:transform .3s, color .3s; }
-    .svc:hover .svc-arrow { transform:translate(4px,-4px); color:var(--white); }
+    .svc-num { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--g4); margin-bottom:34px; }
+    .svc-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:21px; line-height:1.25; letter-spacing:-.02em; margin-bottom:15px; }
+    .svc-desc { font-size:13.5px; line-height:1.85; color:var(--g6); max-width:38ch; }
+    .svc-arrow { position:absolute; bottom:40px; right:42px; font-size:18px; color:var(--g3); transition:transform .35s var(--ease), color .35s; }
+    .svc:hover .svc-arrow { transform:translate(5px,-5px); color:var(--white); }
 
-    /* ── WHY US ── */
-    .why { padding:120px 52px; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
-    .why-left .big { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px,6vw,88px); line-height:.9; letter-spacing:-.04em; }
-    .why-left .big span { color:var(--g3); -webkit-text-stroke:1px var(--g3); }
-    .why-right { padding-top:8px; }
-    .why-point { padding:24px 0; border-bottom:1px solid var(--line); }
+    /* ── PROCESS (inverted / light) ── */
+    .process { background:var(--paper); color:var(--ink); padding:130px 52px; border-top:1px solid var(--line); }
+    .process .label { color:#6b6b66; }
+    .process .label::before { background:#9a9a92; }
+    .process .sec-title { color:var(--ink); }
+    .process-intro { display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap; margin-bottom:24px; }
+    .process-intro p { max-width:360px; font-size:14px; line-height:1.8; color:#4a4a44; }
+    .steps { margin-top:30px; }
+    .step { display:grid; grid-template-columns:90px 1fr; gap:30px; padding:32px 0; border-top:1px solid rgba(10,10,10,.13); align-items:start; transition:padding-left .4s var(--ease); }
+    .step:last-child { border-bottom:1px solid rgba(10,10,10,.13); }
+    .step:hover { padding-left:16px; }
+    .step-n { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; color:#8a8a82; padding-top:6px; }
+    .step-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:clamp(20px,2.4vw,30px); letter-spacing:-.025em; margin-bottom:10px; }
+    .step-text { font-size:14px; line-height:1.8; color:#4a4a44; max-width:62ch; }
+
+    /* ── STATS ── */
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); }
+    .stat { background:var(--ink); padding:48px 36px; }
+    .stat-num { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(40px,5vw,68px); letter-spacing:-.04em; line-height:1; }
+    .stat-num .u { font-size:.42em; color:var(--g5); margin-left:2px; }
+    .stat-label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--g5); margin-top:18px; line-height:1.6; }
+
+    /* ── WHY ── */
+    .why { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .why-left .big { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px,6vw,92px); line-height:.9; letter-spacing:-.045em; }
+    .why-left .big span { color:transparent; -webkit-text-stroke:1px var(--g4); }
+    .why-point { padding:26px 0; border-bottom:1px solid var(--line); }
     .why-point:first-child { border-top:1px solid var(--line); }
-    .why-point-title { font-family:'Unbounded',sans-serif; font-weight:400; font-size:15px; letter-spacing:-.01em; margin-bottom:8px; }
-    .why-point-text { font-size:13.5px; line-height:1.75; color:var(--g5); }
+    .why-point-title { font-family:'Unbounded',sans-serif; font-weight:400; font-size:16px; letter-spacing:-.01em; margin-bottom:9px; }
+    .why-point-text { font-size:13.5px; line-height:1.8; color:var(--g6); }
 
     /* ── STATEMENT ── */
-    .statement { padding:160px 52px; border-top:1px solid var(--line); text-align:center; }
-    .stmt { font-family:'Unbounded',sans-serif; font-weight:300; font-size:clamp(26px,3.8vw,52px); line-height:1.35; letter-spacing:-.02em; max-width:20ch; margin:0 auto; color:var(--g5); }
+    .statement { padding:150px 52px; border-top:1px solid var(--line); text-align:center; }
+    .stmt { font-family:'Unbounded',sans-serif; font-weight:300; font-size:clamp(26px,3.9vw,54px); line-height:1.32; letter-spacing:-.025em; max-width:21ch; margin:0 auto; color:var(--g5); }
     .stmt strong { font-weight:700; color:var(--white); }
 
     /* ── PORTFOLIO ── */
-    .port-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; }
-    .port-count { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em; color:var(--g4); }
-    .port-list { display:flex; flex-direction:column; }
-    .port-row {
-      display:grid; grid-template-columns:64px 1fr 220px 100px;
-      align-items:center; gap:24px;
-      padding:28px 0; border-bottom:1px solid var(--line);
-      transition:padding-left .3s;
-    }
-    .port-row:hover { padding-left:20px; }
+    .port-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:30px; }
+    .port-count { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em; color:var(--g5); white-space:nowrap; }
+    .port-row { display:grid; grid-template-columns:60px 1fr 230px 70px 28px; align-items:center; gap:24px; padding:30px 0; border-bottom:1px solid var(--line); transition:padding-left .4s var(--ease); }
+    .port-row:first-child { border-top:1px solid var(--line); }
+    .port-row:hover { padding-left:22px; }
     .port-row:hover .pr-name { color:var(--white); }
+    .port-row:hover .pr-go { color:var(--white); transform:translate(4px,-4px); }
     .pr-n { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--g4); letter-spacing:.1em; }
-    .pr-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:clamp(17px,2.2vw,26px); letter-spacing:-.02em; color:var(--g5); transition:color .3s; }
+    .pr-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:clamp(18px,2.3vw,28px); letter-spacing:-.025em; color:var(--g6); transition:color .35s; }
     .pr-tags { display:flex; gap:7px; flex-wrap:wrap; }
-    .tag { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--g5); border:1px solid var(--g3); padding:4px 10px; }
+    .tag { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--g6); border:1px solid var(--g3); padding:4px 10px; }
     .pr-yr { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--g4); text-align:right; }
+    .pr-go { font-size:16px; color:var(--g3); text-align:right; transition:transform .35s var(--ease), color .35s; }
 
-    <div class="ct-right fu">
-  <a href="https://wa.me/33771554918" target="_blank" class="send-btn" style="text-decoration:none; text-align:center; padding:17px 32px;">
-    Contact us on WhatsApp →
-  </a>
-</div>
+    /* ── PRICING ── */
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:8px; }
+    .plan { background:var(--ink); padding:44px 38px 40px; display:flex; flex-direction:column; transition:background .4s; }
+    .plan:hover { background:var(--g1); }
+    .plan.featured { background:var(--g1); }
+    .plan-tag { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); background:var(--white); padding:5px 11px; align-self:flex-start; margin-bottom:24px; }
+    .plan-tag.muted { background:transparent; color:var(--g5); padding:5px 0; }
+    .plan-name { font-family:'Unbounded',sans-serif; font-weight:400; font-size:23px; letter-spacing:-.02em; margin-bottom:8px; }
+    .plan-price { font-family:'Unbounded',sans-serif; font-weight:700; font-size:34px; letter-spacing:-.03em; margin-bottom:6px; }
+    .plan-price .from { font-family:'IBM Plex Mono',monospace; font-weight:400; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--g5); display:block; margin-bottom:4px; }
+    .plan-note { font-size:12.5px; color:var(--g5); margin-bottom:28px; }
+    .plan-feats { list-style:none; display:flex; flex-direction:column; gap:13px; margin-bottom:34px; flex:1; }
+    .plan-feats li { font-size:13.5px; line-height:1.5; color:var(--g6); display:flex; gap:12px; }
+    .plan-feats li::before { content:'→'; color:var(--g4); flex-shrink:0; }
+    .plan .hbtn { text-align:center; }
 
+    /* ── FAQ ── */
+    .faq-wrap { max-width:880px; }
+    .faq-item { border-top:1px solid var(--line); }
+    .faq-item:last-child { border-bottom:1px solid var(--line); }
+    .faq-q { width:100%; background:none; border:none; color:var(--white); font-family:'Unbounded',sans-serif; font-weight:400; font-size:clamp(16px,1.9vw,21px); letter-spacing:-.02em; text-align:left; padding:28px 0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:24px; }
+    .faq-q .ic { font-family:'IBM Plex Mono',monospace; font-size:20px; color:var(--g5); transition:transform .4s var(--ease); flex-shrink:0; }
+    .faq-item.open .faq-q .ic { transform:rotate(45deg); color:var(--white); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
+    .faq-a-inner { padding:0 0 30px; font-size:14px; line-height:1.85; color:var(--g6); max-width:64ch; }
+
+    /* ── CONTACT ── */
+    .contact { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .ct-title { font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(34px,5vw,72px); line-height:.95; letter-spacing:-.04em; margin-bottom:32px; }
+    .ct-lead { font-size:15px; line-height:1.8; color:var(--g6); max-width:42ch; margin-bottom:40px; }
+    .ct-direct { display:flex; flex-direction:column; gap:2px; }
+    .ct-line { display:flex; justify-content:space-between; align-items:center; padding:20px 0; border-top:1px solid var(--line); text-decoration:none; transition:padding-left .35s var(--ease); }
+    .ct-line:last-child { border-bottom:1px solid var(--line); }
+    .ct-line:hover { padding-left:14px; }
+    .ct-line .k { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--g5); }
+    .ct-line .v { font-size:15px; color:var(--white); }
+    .ct-form { display:flex; flex-direction:column; gap:18px; }
+    .field { display:flex; flex-direction:column; gap:9px; }
+    .field label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--g5); }
+    .field input, .field textarea { background:var(--g1); border:1px solid var(--g3); color:var(--white); font-family:'IBM Plex Sans',sans-serif; font-size:14.5px; padding:14px 16px; transition:border-color .3s; resize:vertical; }
+    .field input:focus, .field textarea:focus { outline:none; border-color:var(--g5); }
+    .field input::placeholder, .field textarea::placeholder { color:var(--g4); }
+    .send-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); background:var(--white); border:none; padding:17px 32px; cursor:pointer; transition:opacity .3s; }
+    .send-btn:hover { opacity:.85; }
+    .wa-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--white); border:1px solid var(--g3); padding:17px 32px; text-decoration:none; text-align:center; transition:border-color .3s, color .3s; }
+    .wa-btn:hover { border-color:var(--white); }
+    .form-note { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.1em; color:var(--g4); margin-top:4px; line-height:1.6; }
 
     /* ── FOOTER ── */
-    footer { padding:36px 52px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
-    .f-logo { font-family:'Unbounded',sans-serif; font-weight:700; font-size:14px; letter-spacing:.08em; }
+    footer { padding:64px 52px 40px; border-top:1px solid var(--line); }
+    .foot-top { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:54px; }
+    .foot-brand { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px,7vw,96px); letter-spacing:-.04em; line-height:.9; }
+    .foot-cta { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); background:var(--white); padding:15px 28px; text-decoration:none; transition:opacity .3s; white-space:nowrap; }
+    .foot-cta:hover { opacity:.85; }
+    .foot-bottom { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; padding-top:28px; border-top:1px solid var(--line); }
+    .foot-links { display:flex; gap:26px; flex-wrap:wrap; }
+    .foot-links a { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--g5); text-decoration:none; transition:color .3s; }
+    .foot-links a:hover { color:var(--white); }
     .f-copy { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--g4); }
 
+    /* ── PAGE LOAD ── */
+    body.loading { overflow:hidden; }
+    .fade-in { opacity:0; transform:translateY(16px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+    body.loaded .fade-in { opacity:1; transform:translateY(0); }
+    body.loaded .hero-title .line > span { transition:transform 1s var(--ease); transform:translateY(0); }
+    .hero-title .line:nth-child(1) > span { transition-delay:.15s; }
+    .hero-title .line:nth-child(2) > span { transition-delay:.27s; }
+    .hero-title .line:nth-child(3) > span { transition-delay:.39s; }
+    .d1 { transition-delay:.5s; } .d2 { transition-delay:.6s; } .d3 { transition-delay:.7s; } .d4 { transition-delay:.8s; }
+
+    /* ── FOCUS / A11Y ── */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--white); outline-offset:3px; }
+
     /* ── MOBILE ── */
-    @media(max-width:768px){
-      nav { padding:20px 24px; }
-      .nav-links { display:none; }
-      .hero { padding:0 24px 56px; }
-      .hero-sub { flex-direction:column; gap:20px; align-items:flex-start; }
-      .section-wrap { padding:80px 24px; }
+    @media(max-width:900px){
+      .why { grid-template-columns:1fr; gap:48px; }
+      .stats { grid-template-columns:1fr 1fr; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .contact { grid-template-columns:1fr; gap:48px; }
       .services-grid { grid-template-columns:1fr; }
-      .why { grid-template-columns:1fr; padding:80px 24px; gap:48px; }
-      .statement { padding:80px 24px; }
-      .port-row { grid-template-columns:40px 1fr 90px; }
+    }
+    @media(max-width:768px){
+      nav, nav.scrolled { padding:18px 22px; }
+      .nav-links, .nav-cta { display:none; }
+      .burger { display:flex; }
+      .hero { padding:0 22px 52px; }
+      .hero-sub { flex-direction:column; gap:26px; align-items:flex-start; }
+      .hero-scroll { display:none; }
+      .sec, .process, .statement { padding:78px 22px; }
+      .step { grid-template-columns:54px 1fr; gap:18px; }
+      .port-row { grid-template-columns:34px 1fr 60px 22px; }
       .pr-tags { display:none; }
-      .contact-wrap { grid-template-columns:1fr; padding:80px 24px; gap:48px; }
-      footer { flex-direction:column; gap:14px; text-align:center; padding:32px 24px; }
-      #cur,#ring { display:none; }
+      .stats { grid-template-columns:1fr 1fr; }
+      footer { padding:54px 22px 34px; }
+      .foot-bottom { flex-direction:column; align-items:flex-start; }
+      #cur, #ring { display:none; }
       body { cursor:auto; }
-      .send-btn { cursor:pointer; }
+    }
+    @media(max-width:430px){ .stats { grid-template-columns:1fr; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation:none !important; transition:none !important; }
+      .fu, .fade-in { opacity:1 !important; transform:none !important; }
+      .hero-title .line > span { transform:none !important; }
+      html { scroll-behavior:auto; }
     }
   </style>
 </head>
-<body>
+<body class="loading">
 
+<div id="progress"></div>
 <div id="cur"></div>
 <div id="ring"></div>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">SITELIO</a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Get a website</a>
+<nav id="nav">
+  <a href="#top" class="nav-logo"><span class="dot"></span>SITELIO</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get a website</a>
+    <button class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" class="mm-link">Services</a>
+  <a href="#process" class="mm-link">Process</a>
+  <a href="#work" class="mm-link">Work</a>
+  <a href="#pricing" class="mm-link">Pricing</a>
+  <a href="#contact" class="mm-link">Contact</a>
+  <p class="mm-meta">Sitelio — Web Studio<br>hello@sitelio.com</p>
+</div>
+
 <!-- HERO -->
-<section class="hero">
+<header class="hero" id="top">
   <div class="hero-glow"></div>
-  <p class="hero-eyebrow fu">Web Studio — Websites & Advertising</p>
-  <h1 class="hero-title fu">
-    Your business<br>
-    <span class="ghost">deserves</span><br>
-    clients.
+  <p class="hero-eyebrow fade-in d1">Web Studio — Websites &amp; Advertising</p>
+  <h1 class="hero-title">
+    <span class="line"><span>Your business</span></span>
+    <span class="line"><span class="ghost">deserves</span></span>
+    <span class="line"><span>clients.</span></span>
   </h1>
-  <div class="hero-btns fu">
-    <a href="#contact" class="hbtn hbtn-primary">Get a free quote →</a>
-    <a href="#services" class="hbtn hbtn-ghost">See our services</a>
-    <a href="#work" class="hbtn hbtn-ghost">View our work</a>
+  <div class="hero-sub">
+    <div>
+      <p class="hero-desc fade-in d2">
+        Sitelio builds <strong>fast, modern websites</strong> and runs <strong>targeted ads</strong> for businesses ready to grow online. One fixed price. No jargon. Just results.
+      </p>
+      <div class="hero-btns fade-in d3">
+        <a href="#contact" class="hbtn hbtn-primary">Get a free quote →</a>
+        <a href="#work" class="hbtn hbtn-ghost">See our work</a>
+      </div>
+    </div>
+    <div class="hero-scroll fade-in d4"><div class="scroll-bar"></div>Scroll</div>
   </div>
-  <div class="hero-sub fu">
-    <p class="hero-desc">
-      Sitelio builds <strong>professional websites</strong> and runs <strong>targeted ads</strong> for businesses ready to grow online. No fluff — just results.
-    </p>
-    <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
-  </div>
-</section>
+</header>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -253,178 +382,276 @@
   </div>
 </div>
 
+<main>
+
 <!-- SERVICES -->
-<div class="section-wrap" id="services">
-  <p class="label fu">— What we do</p>
+<section class="sec" id="services">
+  <p class="label fu">What we do</p>
   <div class="services-grid">
-
-    <div class="svc fu">
-      <p class="svc-num">01</p>
-      <h3 class="svc-name">Professional Website</h3>
-      <p class="svc-desc">A fast, modern site built from scratch — made to turn visitors into customers. Mobile-first, SEO-ready, delivered in days.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
-    <div class="svc fu">
-      <p class="svc-num">02</p>
-      <h3 class="svc-name">Google Ads</h3>
-      <p class="svc-desc">Your business at the top of Google search results. We set up and manage your campaigns so you attract clients actively looking for you.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
-    <div class="svc fu">
-      <p class="svc-num">03</p>
-      <h3 class="svc-name">Meta Ads (Facebook & Instagram)</h3>
-      <p class="svc-desc">Targeted ads that reach your exact audience on the platforms they use every day. More reach, more leads, more revenue.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
-    <div class="svc fu">
-      <p class="svc-num">04</p>
-      <h3 class="svc-name">E-Commerce Store</h3>
-      <p class="svc-desc">Sell your products online 24/7. A complete online shop built for conversion — with secure payment, product pages, and order management.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
-    <div class="svc fu">
-      <p class="svc-num">05</p>
-      <h3 class="svc-name">SEO & Local Visibility</h3>
-      <p class="svc-desc">Rank higher on Google without paying for ads. We optimise your site so your business shows up when people search in your area.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
-    <div class="svc fu">
-      <p class="svc-num">06</p>
-      <h3 class="svc-name">Landing Pages</h3>
-      <p class="svc-desc">A single focused page built to convert. Perfect for promotions, offers, or ad campaigns that need to drive action fast.</p>
-      <span class="svc-arrow">↗</span>
-    </div>
-
+    <div class="svc fu"><p class="svc-num">01</p><h3 class="svc-name">Professional Website</h3><p class="svc-desc">A fast, modern site built from scratch — made to turn visitors into customers. Mobile-first, SEO-ready, delivered in days.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">02</p><h3 class="svc-name">Google Ads</h3><p class="svc-desc">Your business at the top of Google search. We set up and manage campaigns so you reach clients actively looking for you.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">03</p><h3 class="svc-name">Meta Ads — Facebook &amp; Instagram</h3><p class="svc-desc">Targeted ads that reach your exact audience on the platforms they use every day. More reach, more leads, more revenue.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">04</p><h3 class="svc-name">E-Commerce Store</h3><p class="svc-desc">Sell online 24/7. A complete shop built for conversion — secure payment, product pages, and order management.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">05</p><h3 class="svc-name">SEO &amp; Local Visibility</h3><p class="svc-desc">Rank higher on Google without paying for ads. We optimise your site so you show up when people search in your area.</p><span class="svc-arrow">↗</span></div>
+    <div class="svc fu"><p class="svc-num">06</p><h3 class="svc-name">Landing Pages</h3><p class="svc-desc">A single focused page built to convert. Perfect for promotions, offers, or ad campaigns that need to drive action fast.</p><span class="svc-arrow">↗</span></div>
   </div>
-</div>
+</section>
 
-<!-- WHY US -->
-<div class="why fu">
-  <div class="why-left">
-    <p class="label">— Why Sitelio</p>
-    <p class="big">Built<br>to<br>sell.<span>™</span></p>
+<!-- PROCESS (light / inverted) -->
+<section class="process" id="process">
+  <div class="process-intro">
+    <div>
+      <p class="label fu">How we work</p>
+      <h2 class="sec-title fu">From idea<br>to clients.</h2>
+    </div>
+    <p class="fu">A clear, simple path. You always know what happens next, what it costs, and when it goes live. No surprises.</p>
   </div>
-  <div class="why-right">
-    <div class="why-point fu">
-      <p class="why-point-title">No website, no clients online.</p>
-      <p class="why-point-text">In 2026, if your business isn't online, it doesn't exist to most people. We change that — fast.</p>
+  <div class="steps">
+    <div class="step fu"><span class="step-n">01</span><div><h3 class="step-name">We talk</h3><p class="step-text">A short call to understand your business, your clients, and what you actually need the site to do.</p></div></div>
+    <div class="step fu"><span class="step-n">02</span><div><h3 class="step-name">You get a clear quote</h3><p class="step-text">One fixed price, written down — exactly what's included and what's not. You sign, we start. Nothing hidden.</p></div></div>
+    <div class="step fu"><span class="step-n">03</span><div><h3 class="step-name">We design &amp; build</h3><p class="step-text">You see a first version fast. Two rounds of revisions included so it ends up exactly right.</p></div></div>
+    <div class="step fu"><span class="step-n">04</span><div><h3 class="step-name">We launch</h3><p class="step-text">Your site goes live on your own domain — tested on mobile, fast, and ready to bring in clients.</p></div></div>
+    <div class="step fu"><span class="step-n">05</span><div><h3 class="step-name">We help you grow</h3><p class="step-text">Optional: ads, SEO, and maintenance to keep clients coming long after launch day.</p></div></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec">
+  <p class="label fu">The promise</p>
+  <div class="stats">
+    <div class="stat fu"><div class="stat-num" data-count="48"><span class="num">0</span><span class="u">h</span></div><p class="stat-label">First design,<br>in front of you</p></div>
+    <div class="stat fu"><div class="stat-num"><span class="num">1</span></div><p class="stat-label">Fixed price,<br>agreed up front</p></div>
+    <div class="stat fu"><div class="stat-num" data-count="100"><span class="num">0</span><span class="u">%</span></div><p class="stat-label">Mobile-first,<br>every time</p></div>
+    <div class="stat fu"><div class="stat-num">0<span class="u">€</span></div><p class="stat-label">Hidden fees,<br>ever</p></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec">
+  <div class="why">
+    <div class="why-left">
+      <p class="label fu">Why Sitelio</p>
+      <p class="big fu">Built<br>to<br>sell.<span>™</span></p>
     </div>
-    <div class="why-point fu">
-      <p class="why-point-title">Ads that actually pay back.</p>
-      <p class="why-point-text">We don't just run ads — we track every euro spent and make sure it brings more back. No wasted budget.</p>
-    </div>
-    <div class="why-point fu">
-      <p class="why-point-title">One team for everything.</p>
-      <p class="why-point-text">Website, ads, SEO — all in one place. No need to juggle five different agencies or freelancers.</p>
-    </div>
-    <div class="why-point fu">
-      <p class="why-point-title">Results in weeks, not months.</p>
-      <p class="why-point-text">We move fast. Your site goes live quickly, your ads start running right after. Your business starts growing immediately.</p>
+    <div class="why-right">
+      <div class="why-point fu"><p class="why-point-title">No website, no clients online.</p><p class="why-point-text">In 2026, if your business isn't online, it doesn't exist to most people. We change that — fast.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Ads that actually pay back.</p><p class="why-point-text">We don't just run ads — we track every euro spent and make sure it brings more back. No wasted budget.</p></div>
+      <div class="why-point fu"><p class="why-point-title">One team for everything.</p><p class="why-point-text">Website, ads, SEO — all in one place. No juggling five freelancers who don't talk to each other.</p></div>
+      <div class="why-point fu"><p class="why-point-title">Results in weeks, not months.</p><p class="why-point-text">We move fast. Your site goes live quickly, your ads start right after. Growth begins immediately.</p></div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- STATEMENT -->
-<div class="statement">
-  <p class="stmt fu">
-    Your competitors<br>
-    are already online.<br>
-    <strong>Are you?</strong>
-  </p>
-</div>
+<section class="statement">
+  <p class="stmt fu">Your competitors<br>are already online.<br><strong>Are you?</strong></p>
+</section>
 
 <!-- PORTFOLIO -->
-<div class="section-wrap" id="work">
+<section class="sec" id="work">
   <div class="port-head">
     <div>
-      <p class="label">— Selected projects</p>
-      <h2 class="section-title fu">Work</h2>
+      <p class="label fu">Selected projects</p>
+      <h2 class="sec-title fu">Work</h2>
     </div>
     <p class="port-count fu">06 projects</p>
   </div>
   <div class="port-list">
-    <div class="port-row fu">
-      <span class="pr-n">01</span>
-      <span class="pr-name">Maison Ferro</span>
-      <div class="pr-tags"><span class="tag">Website</span><span class="tag">Google Ads</span></div>
-      <span class="pr-yr">2025</span>
+    <div class="port-row fu"><span class="pr-n">01</span><span class="pr-name">Maison Ferro</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">02</span><span class="pr-name">Électro Rapide</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">03</span><span class="pr-name">Carrelage Neves</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">04</span><span class="pr-name">Auto Garage Silva</span><div class="pr-tags"><span class="tag">Landing Page</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">05</span><span class="pr-name">Boutique Laure</span><div class="pr-tags"><span class="tag">E-Commerce</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <div class="port-row fu"><span class="pr-n">06</span><span class="pr-name">Plomberie Dumont</span><div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" id="pricing">
+  <p class="label fu">Packages</p>
+  <h2 class="sec-title fu" style="margin-bottom:54px;">Simple pricing.<br>No surprises.</h2>
+  <div class="pricing-grid">
+    <div class="plan fu">
+      <span class="plan-tag muted">01 — Starter</span>
+      <h3 class="plan-name">One-Page Site</h3>
+      <div class="plan-price"><span class="from">From</span>€350</div>
+      <p class="plan-note">Perfect for a clean, credible online presence.</p>
+      <ul class="plan-feats">
+        <li>Single-page professional site</li>
+        <li>Mobile-first design</li>
+        <li>Contact form + WhatsApp</li>
+        <li>Live in a few days</li>
+      </ul>
+      <a href="#contact" class="hbtn hbtn-ghost">Get a quote →</a>
     </div>
-    <div class="port-row fu">
-      <span class="pr-n">02</span>
-      <span class="pr-name">Électro Rapide</span>
-      <div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div>
-      <span class="pr-yr">2025</span>
+    <div class="plan featured fu">
+      <span class="plan-tag">02 — Most popular</span>
+      <h3 class="plan-name">Business Site</h3>
+      <div class="plan-price"><span class="from">From</span>€750</div>
+      <p class="plan-note">For businesses that want to be found and grow.</p>
+      <ul class="plan-feats">
+        <li>Multi-section website</li>
+        <li>SEO &amp; local visibility setup</li>
+        <li>Google Business profile</li>
+        <li>Two rounds of revisions</li>
+        <li>Launch on your domain</li>
+      </ul>
+      <a href="#contact" class="hbtn hbtn-primary">Get a quote →</a>
     </div>
-    <div class="port-row fu">
-      <span class="pr-n">03</span>
-      <span class="pr-name">Carrelage Neves</span>
-      <div class="pr-tags"><span class="tag">Website</span><span class="tag">Meta Ads</span></div>
-      <span class="pr-yr">2025</span>
-    </div>
-    <div class="port-row fu">
-      <span class="pr-n">04</span>
-      <span class="pr-name">Auto Garage Silva</span>
-      <div class="pr-tags"><span class="tag">Landing Page</span><span class="tag">Google Ads</span></div>
-      <span class="pr-yr">2025</span>
-    </div>
-    <div class="port-row fu">
-      <span class="pr-n">05</span>
-      <span class="pr-name">Boutique Laure</span>
-      <div class="pr-tags"><span class="tag">E-Commerce</span><span class="tag">Meta Ads</span></div>
-      <span class="pr-yr">2025</span>
-    </div>
-    <div class="port-row fu">
-      <span class="pr-n">06</span>
-      <span class="pr-name">Plomberie Dumont</span>
-      <div class="pr-tags"><span class="tag">Website</span><span class="tag">SEO</span></div>
-      <span class="pr-yr">2025</span>
+    <div class="plan fu">
+      <span class="plan-tag muted">03 — Custom</span>
+      <h3 class="plan-name">E-Commerce &amp; Ads</h3>
+      <div class="plan-price">Let's talk</div>
+      <p class="plan-note">Online store, ad campaigns, the full engine.</p>
+      <ul class="plan-feats">
+        <li>Full online shop</li>
+        <li>Google &amp; Meta ad campaigns</li>
+        <li>Ongoing growth &amp; reporting</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#contact" class="hbtn hbtn-ghost">Book a call →</a>
     </div>
   </div>
-</div>
+</section>
+
+<!-- FAQ -->
+<section class="sec">
+  <p class="label fu">Good to know</p>
+  <h2 class="sec-title fu" style="margin-bottom:48px;">Questions,<br>answered.</h2>
+  <div class="faq-wrap fu">
+    <div class="faq-item"><button class="faq-q">How long does a website take?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Most one-page sites go live within a few days once we have your content. Larger sites take a couple of weeks. We agree on a clear timeline before we start.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Who owns the domain and the site?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">You do — always. The domain is registered in your name and the site is yours. We can handle the setup and renewals for you, but it stays your property.</div></div></div>
+    <div class="faq-item"><button class="faq-q">What's included in the price?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Design, build, mobile optimisation, a contact form, and going live. Anything outside that — like photography, copywriting, or your domain fee — is listed clearly in the quote before we start.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Can you change things after launch?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes. Every project includes revisions, and after launch you can take an optional maintenance plan for updates, hosting, and small changes whenever you need them.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Do I need to know anything technical?<span class="ic">+</span></button><div class="faq-a"><div class="faq-a-inner">No. That's our job. You tell us about your business, we handle the rest and explain everything in plain language.</div></div></div>
+  </div>
+</section>
 
 <!-- CONTACT -->
-<div class="ct-right fu">
-  <a href="https://wa.me/33771554918" target="_blank" class="send-btn" style="text-decoration:none; text-align:center; padding:17px 32px;">
-    Contact us on WhatsApp →
-  </a>
-</div>
+<section class="sec" id="contact">
+  <div class="contact">
+    <div>
+      <p class="label fu">Get started</p>
+      <h2 class="ct-title fu">Let's build<br>your site.</h2>
+      <p class="ct-lead fu">Tell us about your business and what you want online. We'll come back with a clear quote — free, no obligation.</p>
+      <div class="ct-direct fu">
+        <a class="ct-line" href="https://wa.me/33771554918" target="_blank" rel="noopener">
+          <span class="k">WhatsApp</span><span class="v">+33 7 71 55 49 18 →</span>
+        </a>
+        <a class="ct-line" href="mailto:hello@sitelio.com">
+          <span class="k">Email</span><span class="v">hello@sitelio.com →</span>
+        </a>
+        <a class="ct-line" href="#work">
+          <span class="k">Portfolio</span><span class="v">See our work →</span>
+        </a>
+      </div>
+    </div>
+    <div class="fu">
+      <form class="ct-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="Jean Dupont" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="jean@business.com" required></div>
+        <div class="field"><label for="msg">What do you need?</label><textarea id="msg" name="message" rows="4" placeholder="A website for my business, ads, e-commerce..." required></textarea></div>
+        <button class="send-btn" type="submit">Send request →</button>
+        <a class="wa-btn" href="https://wa.me/33771554918" target="_blank" rel="noopener">Or message us on WhatsApp</a>
+        <p class="form-note">We reply within 24 hours. Your details are never shared.</p>
+      </form>
+    </div>
+  </div>
+</section>
 
+</main>
 
 <!-- FOOTER -->
 <footer>
-  <span class="f-logo">SITELIO</span>
-  <span class="f-copy">© 2026 Sitelio. All rights reserved.</span>
+  <div class="foot-top">
+    <div class="foot-brand">Let's<br>talk.</div>
+    <a href="#contact" class="foot-cta">Get a free quote →</a>
+  </div>
+  <div class="foot-bottom">
+    <span class="f-copy">© 2026 Sitelio — Web Studio</span>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://wa.me/33771554918" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#legal">Mentions légales</a>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Cursor
-  const cur = document.getElementById('cur');
-  const ring = document.getElementById('ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => {
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Page load
+  window.addEventListener('load', () => {
+    document.body.classList.remove('loading');
+    document.body.classList.add('loaded');
   });
-  (function loop(){
-    rx+=(mx-rx)*.11; ry+=(my-ry)*.11;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,button,.svc,.port-row').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(255,255,255,.55)';cur.style.opacity='0';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(255,255,255,.25)';cur.style.opacity='1';});
+  setTimeout(() => { document.body.classList.remove('loading'); document.body.classList.add('loaded'); }, 1200);
+
+  // Cursor
+  if (!reduce && window.matchMedia('(pointer:fine)').matches) {
+    const cur = document.getElementById('cur'), ring = document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+    document.querySelectorAll('a,button,.svc,.port-row,.plan,input,textarea').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ ring.style.width='58px'; ring.style.height='58px'; cur.style.opacity='0'; });
+      el.addEventListener('mouseleave',()=>{ ring.style.width='34px'; ring.style.height='34px'; cur.style.opacity='1'; });
+    });
+    // Magnetic buttons
+    document.querySelectorAll('.hbtn-primary, .nav-cta, .send-btn, .foot-cta').forEach(btn=>{
+      btn.addEventListener('mousemove', e=>{ const r=btn.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2; const y=e.clientY-r.top-r.height/2; btn.style.transform=`translate(${x*0.25}px, ${y*0.35}px)`; });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.transform='translate(0,0)'; });
+    });
+  } else {
+    document.getElementById('cur').style.display='none';
+    document.getElementById('ring').style.display='none';
+  }
+
+  // Scroll progress + nav
+  const nav = document.getElementById('nav'), prog = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (scrollY / h * 100) + '%';
+    nav.classList.toggle('scrolled', scrollY > 40);
   });
 
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'), i*70); });
-  },{threshold:.08});
+  // Reveal
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('on'), (i%6)*70); obs.unobserve(e.target); } });
+  },{threshold:.12});
   document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+  // Stat counters
+  const counters = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el = e.target.querySelector('.num');
+      const target = parseInt(e.target.dataset.count,10);
+      if (reduce) { el.textContent = target; counters.unobserve(e.target); return; }
+      let n=0; const step = Math.max(1, Math.round(target/40));
+      const tick = ()=>{ n+=step; if(n>=target){ el.textContent=target; } else { el.textContent=n; requestAnimationFrame(tick); } };
+      tick(); counters.unobserve(e.target);
+    });
+  },{threshold:.6});
+  document.querySelectorAll('.stat-num[data-count]').forEach(el=>counters.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item = q.parentElement;
+      const a = q.nextElementSibling;
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight=null; });
+      if(!open){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  burger.addEventListener('click', ()=> document.body.classList.toggle('menu-open'));
+  document.querySelectorAll('.mm-link').forEach(l=> l.addEventListener('click', ()=> document.body.classList.remove('menu-open')));
 </script>
 </body>
 </html>
