@@ -102,8 +102,26 @@
     .hbtn-ghost:hover { border-color:var(--white); color:var(--white); }
 
     /* ── HERO ── */
-    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 52px 76px; position:relative; overflow:hidden; }
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; padding:128px 52px 76px; position:relative; overflow:hidden; }
     .hero-glow { position:absolute; top:-5%; left:50%; transform:translateX(-50%); width:680px; height:680px; background:radial-gradient(ellipse, rgba(243,243,240,.06) 0%, transparent 70%); pointer-events:none; }
+    /* animated logo mark */
+    .hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; }
+    .hero-mark { width:94px; height:94px; }
+    .hero-mark svg { width:100%; height:100%; display:block; overflow:visible; }
+    .hm-rotor { transform-box:fill-box; transform-origin:center; }
+    body.loaded .hm-rotor { animation:hmspin 20s linear infinite; }
+    .hm-ring { fill:none; stroke:var(--g4); stroke-width:1.2; stroke-dasharray:365; stroke-dashoffset:365; }
+    body.loaded .hm-ring { animation:hmdraw 1.2s var(--ease) .25s forwards; }
+    .hm-orbit { fill:var(--white); opacity:0; }
+    body.loaded .hm-orbit { animation:hmfade .6s ease .95s forwards; }
+    .hm-s { fill:var(--white); font-family:'Unbounded',sans-serif; font-weight:900; font-size:58px; text-anchor:middle; dominant-baseline:central; opacity:0; transform-box:fill-box; transform-origin:center; transform:scale(.5); }
+    body.loaded .hm-s { animation:hmpop .9s var(--ease) .7s forwards; }
+    @keyframes hmdraw { to { stroke-dashoffset:0; } }
+    @keyframes hmfade { to { opacity:1; } }
+    @keyframes hmpop  { to { opacity:1; transform:scale(1); } }
+    @keyframes hmspin { to { transform:rotate(360deg); } }
+    .hero-status { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--g5); display:flex; align-items:center; gap:9px; padding-top:10px; white-space:nowrap; }
+    .hero-status .dot { width:7px; height:7px; border-radius:50%; background:var(--white); display:inline-block; animation:pulse 2.4s ease-in-out infinite; }
     .hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--g5); margin-bottom:28px; display:flex; align-items:center; gap:14px; }
     .hero-eyebrow::before { content:''; width:30px; height:1px; background:var(--g4); display:inline-block; }
     .hero-title { font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(46px,8.6vw,128px); line-height:.9; letter-spacing:-.035em; }
@@ -283,7 +301,9 @@
       nav, nav.scrolled { padding:18px 22px; }
       .nav-links, .nav-cta { display:none; }
       .burger { display:flex; }
-      .hero { padding:0 22px 52px; }
+      .hero { padding:92px 22px 52px; }
+      .hero-mark { width:64px; height:64px; }
+      .hero-status { font-size:8.5px; letter-spacing:.14em; }
       .hero-sub { flex-direction:column; gap:26px; align-items:flex-start; }
       .hero-scroll { display:none; }
       .sec, .process, .statement { padding:78px 22px; }
@@ -302,6 +322,8 @@
       *, *::before, *::after { animation:none !important; transition:none !important; }
       .fu, .fade-in { opacity:1 !important; transform:none !important; }
       .hero-title .line > span { transform:none !important; }
+      .hm-ring { stroke-dashoffset:0 !important; }
+      .hm-s, .hm-orbit { opacity:1 !important; transform:none !important; }
       html { scroll-behavior:auto; }
     }
   </style>
@@ -342,6 +364,19 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="hero-glow"></div>
+  <div class="hero-top fade-in">
+    <div class="hero-mark">
+      <svg viewBox="0 0 120 120" role="img" aria-label="Sitelio">
+        <g class="hm-rotor">
+          <circle class="hm-ring" cx="60" cy="60" r="58"/>
+          <circle class="hm-orbit" cx="60" cy="2" r="3.6"/>
+        </g>
+        <text class="hm-s" x="60" y="61">S</text>
+      </svg>
+    </div>
+    <div class="hero-status"><span class="dot"></span>Available for new projects</div>
+  </div>
+  <div class="hero-content">
   <p class="hero-eyebrow fade-in d1">Web Studio — Websites &amp; Advertising</p>
   <h1 class="hero-title">
     <span class="line"><span>Your business</span></span>
@@ -359,6 +394,7 @@
       </div>
     </div>
     <div class="hero-scroll fade-in d4"><div class="scroll-bar"></div>Scroll</div>
+  </div>
   </div>
 </header>
 
