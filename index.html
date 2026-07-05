@@ -187,7 +187,7 @@
 
     .port-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:30px; }
     .port-count { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em; color:var(--g5); white-space:nowrap; }
-    .port-row { display:grid; grid-template-columns:60px 1fr 230px 70px 28px; align-items:center; gap:24px; padding:30px 0; border-bottom:1px solid var(--line); transition:padding-left .4s var(--ease); }
+    .port-row { display:grid; grid-template-columns:60px 1fr 230px 70px 28px; align-items:center; gap:24px; padding:30px 0; border-bottom:1px solid var(--line); transition:padding-left .4s var(--ease); text-decoration:none; }
     .port-row:first-child { border-top:1px solid var(--line); }
     .port-row:hover { padding-left:22px; }
     .port-row:hover .pr-name { color:var(--white); }
@@ -572,15 +572,10 @@
       <p class="label fu">Projets sélectionnés</p>
       <h2 class="sec-title fu">Réalisations</h2>
     </div>
-    <p class="port-count fu">06 projets</p>
+    <p class="port-count fu">01 projet</p>
   </div>
   <div class="port-list">
-    <div class="port-row fu"><span class="pr-n">01</span><span class="pr-name">Maison Ferro</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">02</span><span class="pr-name">Électro Rapide</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">03</span><span class="pr-name">Carrelage Neves</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">04</span><span class="pr-name">Auto Garage Silva</span><div class="pr-tags"><span class="tag">Landing page</span><span class="tag">Google Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">05</span><span class="pr-name">Boutique Laure</span><div class="pr-tags"><span class="tag">E-commerce</span><span class="tag">Meta Ads</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
-    <div class="port-row fu"><span class="pr-n">06</span><span class="pr-name">Plomberie Dumont</span><div class="pr-tags"><span class="tag">Site web</span><span class="tag">SEO</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></div>
+    <a class="port-row fu" href="https://casa-portugal.gongarafa9.workers.dev/#ambiente" target="_blank" rel="noopener"><span class="pr-n">01</span><span class="pr-name">Casa Portugal</span><div class="pr-tags"><span class="tag">Site web</span></div><span class="pr-yr">2025</span><span class="pr-go">↗</span></a>
   </div>
 </section>
 
@@ -592,7 +587,7 @@
     <div class="plan fu">
       <span class="plan-tag muted">01 — Essentiel</span>
       <h3 class="plan-name">Site une page</h3>
-      <div class="plan-price"><span class="from">Dès</span>150€</div>
+      <div class="plan-price"><span class="from">Dès</span>100€</div>
       <p class="plan-note">Idéal pour une présence en ligne propre et crédible.</p>
       <ul class="plan-feats">
         <li>Site professionnel une page</li>
@@ -796,7 +791,7 @@
   const REPONSES = [
     {
       cles:["prix","tarif","cout","coute","combien","budget","euro","€","forfait"],
-      rep:`Nos sites démarrent à <strong>150&nbsp;€</strong> (site une page) et <strong>400&nbsp;€</strong> pour le site vitrine multi-sections. Le e-commerce et la pub sont sur devis. Le prix est fixe, sans frais cachés — je peux vous faire un <strong>devis gratuit</strong>, dites-moi votre projet&nbsp;!`
+      rep:`Nos sites démarrent à <strong>100&nbsp;€</strong> (site une page) et <strong>400&nbsp;€</strong> pour le site vitrine multi-sections. Le e-commerce et la pub sont sur devis. Le prix est fixe, sans frais cachés — je peux vous faire un <strong>devis gratuit</strong>, dites-moi votre projet&nbsp;!`
     },
     {
       cles:["delai","temps","rapide","quand","combien de temps","livraison","livrer","jours"],
